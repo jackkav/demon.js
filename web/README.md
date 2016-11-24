@@ -6,7 +6,12 @@
 
 ``` bash
 # install dependencies
-npm install
+yarn
+
+# install dependencies in china
+npm install -g yrm --registry=http://r.cnpmjs.org/
+yrm use cnpm
+yarn
 
 # serve with hot reload at localhost:8080
 npm run dev
