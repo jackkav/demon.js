@@ -3,17 +3,17 @@
     <img src="./assets/logo.png">
     <h1>{{ msg }}</h1>
     <el-button @click.native="startHacking">Let's do it</el-button>
-    <hello></hello>
+    <torrent-table></torrent-table>
   </div>
 </template>
 
 <script>
-import Hello from './components/Hello'
+import TorrentTable from './components/TorrentTable'
 
 export default {
   name: 'app',
   components: {
-    Hello,
+    TorrentTable,
   },
   data() {
     return {
