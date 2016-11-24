@@ -1,7 +1,6 @@
 <template>
   <el-table
     :data="tableData"
-    stripe
     border
     @current-change="downloading"
     style="width: 100%">
@@ -40,15 +39,16 @@ import moment from 'moment'
 export default {
   methods: {
     downloading(val) {
-      this.currentRow = val;
       this.$notify({
         title: 'Downloading...',
         message: val.name,
         duration: 6000
       })
+      // TODO: href to magnet link
     }
   },
   data() {
+    // TODO: get this data from torrent listing API
     return {
       tableData: [{
         date: '2016-06-03',
