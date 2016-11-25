@@ -25,6 +25,7 @@ export default {
         duration: 6000
       }
       this.$notify(data)
+        // to show twk
       location.href =
         'magnet:?xt=urn:btih:c8519027996ef2a57d49cc81d76bd708646a829f&dn=The.Mindy.Project.S05E05.HDTV.x264-KILLERS%5Beztv%5D.mkv%5Beztv%5D&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A80&tr=udp%3A%2F%2Fglotorrents.pw%3A6969%2Fannounce&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337%2Fannounce&tr=udp%3A%2F%2Fexodus.desync.com%3A6969'
     }
