@@ -1,0 +1,9 @@
+{
+  "name": "persist",
+  "version": "1.0.0",
+  "description": "Persistance API read and write to mongo",
+  "main": "index.js",
+  "repository": "https://github.com/jackkav/demon.js",
+  "author": "Jack Kavanagh",
+  "license": "MIT"
+}
