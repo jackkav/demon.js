@@ -1,15 +1,13 @@
 FROM node
 
 # Create app directory
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
+RUN mkdir -p /usr/app
+WORKDIR /usr/app
 
-# Install app dependencies
-COPY package.json /usr/src/app/
-RUN npm install
+COPY package.json /usr/app/
 
-# Bundle app source
-COPY . /usr/src/app
+ENV NODE_ENV=production
 
 EXPOSE 8080
+
 CMD [ "npm", "start" ]
