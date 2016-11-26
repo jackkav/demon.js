@@ -3,23 +3,21 @@
   <top-bar/>
   <!-- <img src="./assets/logo.png">
     <h1>{{ msg }}</h1> -->
-  <el-row>
-    <torrent-table/>
-  </el-row>
+  <torrent-table/>
+
+
 </div>
 </template>
 
 <script>
 import TorrentTable from './components/TorrentTable'
 import TopBar from './components/TopBar'
-import Hello from './components/Hello'
 
 export default {
   name: 'app',
   components: {
     TorrentTable,
     TopBar,
-    Hello,
   },
   data() {
     return {
@@ -44,5 +42,14 @@ export default {
   &:last-child {
     margin-bottom: 0;
   }
+}
+
+.grid-content {
+  border-radius: 4px;
+  min-height: 36px;
+}
+
+.row-bg {
+  padding: 10px 0;
 }
 </style>
