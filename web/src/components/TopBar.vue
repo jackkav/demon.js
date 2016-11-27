@@ -3,8 +3,13 @@
   <el-row>
     <el-menu theme="dark" default-active="1" class="header-home" mode="horizontal" @select="handleSelect">
       <el-col :span="18">
-        <el <el-menu-item index="home">Home page</el-menu-item>
-          <el-menu-item index="pageTwo">Page two</el-menu-item>
+        <el-menu-item index="home" to="/home">
+          <router-link to="/">Home page</router-link>
+        </el-menu-item>
+
+        <el-menu-item index="about">
+          <router-link to="/about">About</router-link>
+        </el-menu-item>
       </el-col>
       <!-- <el-col :span="6">
         <el-menu-item index="search" justify="right">

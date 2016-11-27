@@ -3,9 +3,7 @@
   <top-bar/>
   <!-- <img src="./assets/logo.png">
     <h1>{{ msg }}</h1> -->
-  <torrent-table/>
   <router-view></router-view>
-
 </div>
 </template>
 

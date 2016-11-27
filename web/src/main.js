@@ -2,31 +2,16 @@ import Vue from 'vue'
 import ElementUI from 'element-ui'
 import App from './App'
 import VueRouter from 'vue-router'
+import routes from './routes'
 
 Vue.use(VueRouter)
-/* eslint-disable no-new */
-Vue.use(ElementUI)
 
-// const NotFound = {
-//   template: '<p>Page not found</p>'
-// }
-const Home = {
-  template: '<p>home page</p>'
-}
-const About = {
-  template: '<p>about page</p>'
-}
-const routes = [{
-  path: '/',
-  component: Home
-}, {
-  path: '/about',
-  component: About
-}]
+Vue.use(ElementUI)
 
 const router = new VueRouter({
   routes // short for routes: routes
 })
+/* eslint-disable no-new */
 new Vue({
   el: '#app',
   render: h => h(App),
