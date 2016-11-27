@@ -6,11 +6,14 @@ request({
 }, function(error, response, body) {
   var $ = cheerio.load(body);
 
-  $(".epinfo").each(function() {
+  $(".magnet").each(function() {
     var link = $(this);
-    var text = link.text();
-    var href = link.attr("href");
-
-    console.log(text + " -> " + href);
+    var title = link.attr("title");
+    var magnet = link.attr("href");
+    const data = {
+      title,
+      magnet
+    }
+    console.log(data);
   });
 });
