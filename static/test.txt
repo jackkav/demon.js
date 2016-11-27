@@ -1,0 +1,7 @@
+problems:
+eslint autofix .vue files
+increment data object on click
+making a scraper
+i18n seems a bit ugly?
+dockerise inside nginx
+making an db api project seems a bit confusing at first, should i use webpack?
