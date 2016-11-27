@@ -37,4 +37,29 @@ export default {
   top: 0;
   width: 100%
 }
+
+a {
+  text-decoration: none;
+  color: #fff;
+  display: block;
+  padding: 0 20px;
+  opacity: .8;
+  &.active,
+  &:hover {
+    opacity: 1;
+  }
+  &.active {
+    font-weight: 700;
+  }
+  &.active::before {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: #99d2fc;
+  }
+}
 </style>
