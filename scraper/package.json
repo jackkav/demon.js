@@ -5,5 +5,12 @@
   "main": "index.js",
   "repository": "https://github.com/jackkav/demon.js",
   "author": "Jack Kavanagh",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "cheerio": "^0.22.0",
+    "request": "^2.79.0"
+  }
 }
