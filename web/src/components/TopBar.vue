@@ -3,7 +3,7 @@
   <el-row>
     <el-menu theme="dark" default-active="1" class="header-home" mode="horizontal" @select="handleSelect">
       <el-col :span="18">
-        <el-menu-item index="home" to="/home">
+        <el-menu-item index="home">
           <router-link to="/">Home page</router-link>
         </el-menu-item>
 
@@ -48,10 +48,10 @@ a {
   &:hover {
     opacity: 1;
   }
-  &.active {
+  &.router-link-active {
     font-weight: 700;
   }
-  &.active::before {
+  &.router-link-active::before {
     content: '';
     display: block;
     position: absolute;

@@ -8,4 +8,8 @@ export default [
   }, {
     path: '/about',
     component: About
+  },
+  {
+    path: '/*',
+    redirect: '/'
   }]
