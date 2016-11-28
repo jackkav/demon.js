@@ -5,5 +5,18 @@
   "main": "index.js",
   "repository": "https://github.com/jackkav/demon.js",
   "author": "Jack Kavanagh",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "start": "babel-node index.js",
+    "lint": "eslint index.js"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-preset-latest": "^6.16.0",
+    "babel-eslint": "^7.1.1",
+    "eslint": "^3.11.0",
+    "eslint-config-standard": "^6.2.1",
+    "eslint-plugin-promise": "^3.4.0",
+    "eslint-plugin-standard": "^2.0.1"
+  }
 }
