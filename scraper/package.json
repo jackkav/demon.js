@@ -8,6 +8,7 @@
   "license": "MIT",
   "scripts": {
     "start": "babel-node index.js",
+    "test": "jest",
     "lint": "eslint index.js"
   },
   "dependencies": {
@@ -16,11 +17,12 @@
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
-    "babel-preset-latest": "^6.16.0",
     "babel-eslint": "^7.1.1",
+    "babel-preset-latest": "^6.16.0",
     "eslint": "^3.11.0",
     "eslint-config-standard": "^6.2.1",
     "eslint-plugin-promise": "^3.4.0",
-    "eslint-plugin-standard": "^2.0.1"
+    "eslint-plugin-standard": "^2.0.1",
+    "jest": "^17.0.3"
   }
 }
