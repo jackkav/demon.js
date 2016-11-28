@@ -14,11 +14,6 @@ test('should pull different episode from title', () => {
   const input = 'Shameless US S07E09 HDTV x264-LOL [eztv] (410.63 MB) Magnet Link'
   expect(parse(input).episode).toBe('S07E09')
 })
-// when not found
-test('should set episode to empty?', () => {
-  const input = 'NHK Great Nature 2014 The Enigmatic Island Tasmania 720p HDTV x264 AAC mkv [eztv] (1.32 GB) Magnet Link'
-  expect(parse(input).episode).toBe('')
-})
 test('should pull quality from title', () => {
   const input = 'Westworld S01E09 720p HDTV x264-AVS [eztv] (1.07 GB) Magnet Link'
   expect(parse(input).quality).toBe('720p')
@@ -26,4 +21,40 @@ test('should pull quality from title', () => {
 test('should pull different quality from title', () => {
   const input = 'Shameless US S07E09 HDTV x264-LOL [eztv] (410.63 MB) Magnet Link'
   expect(parse(input).quality).toBe('HDTV')
+})
+test('should pull size from title', () => {
+  const input = 'Westworld S01E09 720p HDTV x264-AVS [eztv] (1.07 GB) Magnet Link'
+  expect(parse(input).size).toBe('1.07 GB')
+})
+test('should pull different size from title', () => {
+  const input = 'Shameless US S07E09 HDTV x264-LOL [eztv] (410.63 MB) Magnet Link'
+  expect(parse(input).size).toBe('410.63 MB')
+})
+test('should pull title from title', () => {
+  const input = 'Shameless US S07E09 HDTV x264-LOL [eztv] (410.63 MB) Magnet Link'
+  expect(parse(input).title).toBe('Shameless US')
+})
+test('should pull different title from title', () => {
+  const input = 'Westworld S01E09 720p HDTV x264-AVS [eztv] (1.07 GB) Magnet Link'
+  expect(parse(input).title).toBe('Westworld')
+})
+
+// when episode is date
+test('should set episode to date', () => {
+  const input = 'Stephen Colbert 2016 11 09 Miles Teller HDTV x264-UAV [eztv] (420.98 MB) Magnet Link'
+  expect(parse(input).episode).toBe('2016 11 09')
+})
+test('should pull title from title', () => {
+  const input = 'Stephen Colbert 2016 11 09 Miles Teller HDTV x264-UAV [eztv] (420.98 MB) Magnet Link'
+  expect(parse(input).title).toBe('Stephen Colbert')
+})
+
+// when episode is missing
+test('should set episode to empty?', () => {
+  const input = 'NHK Great Nature 2014 The Enigmatic Island Tasmania 720p HDTV x264 AAC mkv [eztv] (1.32 GB) Magnet Link'
+  expect(parse(input).episode).toBe('')
+})
+test('should pull title from title', () => {
+  const input = 'NHK Great Nature 2014 The Enigmatic Island Tasmania 720p HDTV x264 AAC mkv [eztv] (1.32 GB) Magnet Link'
+  expect(parse(input).title).toBe('NHK Great Nature 2014 The Enigmatic Island Tasmania')
 })
