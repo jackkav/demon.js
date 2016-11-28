@@ -1,4 +1,4 @@
-var mongoose = require('mongoose')
+import mongoose from 'mongoose'
 mongoose.connect('mongodb://localhost/test')
 mongoose.Promise = global.Promise
 
