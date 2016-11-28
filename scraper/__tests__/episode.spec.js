@@ -15,7 +15,15 @@ test('should pull different episode from title', () => {
   expect(parse(input).episode).toBe('S07E09')
 })
 // when not found
-test('should pull set episode to empty?', () => {
+test('should set episode to empty?', () => {
   const input = 'NHK Great Nature 2014 The Enigmatic Island Tasmania 720p HDTV x264 AAC mkv [eztv] (1.32 GB) Magnet Link'
   expect(parse(input).episode).toBe('')
+})
+test('should pull quality from title', () => {
+  const input = 'Westworld S01E09 720p HDTV x264-AVS [eztv] (1.07 GB) Magnet Link'
+  expect(parse(input).quality).toBe('720p')
+})
+test('should pull different quality from title', () => {
+  const input = 'Shameless US S07E09 HDTV x264-LOL [eztv] (410.63 MB) Magnet Link'
+  expect(parse(input).quality).toBe('HDTV')
 })
