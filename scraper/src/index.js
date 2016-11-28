@@ -15,18 +15,19 @@ request({uri: 'http://www.eztv.ag'}, (error, response, body) => {
     const title = link.attr('title')
     const magnet = link.attr('href')
     const output = {
+      hash: magnet.match(/(?![magnet:?xt=urn:btih:])(.*)(?=&dn)/)[0],
       metadata: parse(title),
       magnet,
-      addedOn: new Date()
+      addedOn: new Date(),
     }
-    const oneShow = new Show(output)
-    oneShow.save(function (err) {
-      if (err) {
-        console.log(err)
-      } else {
-        console.log('added: ' + output.metadata.title)
-      }
-    })
-    // console.log(output)
+    // const oneShow = new Show(output)
+    // oneShow.save(function (err) {
+    //   if (err) {
+    //     console.log(err)
+    //   } else {
+    //     console.log('added: ' + output.metadata.title)
+    //   }
+    // })
+    console.log(output)
   })
 })
