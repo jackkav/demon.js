@@ -1,6 +1,6 @@
 import request from 'request'
 import cheerio from 'cheerio'
-import parse from './magnetParse'
+import parse from './parse'
 
 // TODO: write this data to db
 // TODO: design a effective way to avoid duplicate and wasting db reads

@@ -1,4 +1,4 @@
-import parse from '../magnetParse'
+import parse from '../src/parse'
 
 // given 5 episodes with varying structures can pass data collection tests
 // Westworld S01E09 720p HDTV x264-AVS [eztv] (1.07 GB) Magnet Link

@@ -7,9 +7,9 @@
   "author": "Jack Kavanagh",
   "license": "MIT",
   "scripts": {
-    "start": "babel-node index.js",
+    "start": "babel-node src/index.js",
     "test": "jest",
-    "lint": "eslint index.js"
+    "lint": "eslint src/index.js"
   },
   "dependencies": {
     "cheerio": "^0.22.0",
