@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "cheerio": "^0.22.0",
+    "mongoose": "^4.7.0",
     "request": "^2.79.0"
   },
   "devDependencies": {
