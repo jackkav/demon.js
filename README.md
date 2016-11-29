@@ -4,6 +4,7 @@
 
 ## Start API
 ```bash
+export DATABASE="mongodb://whatever"
 cd persist && npm start
 ```
 

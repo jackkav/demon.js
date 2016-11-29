@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 mongoose.Promise = global.Promise
-mongoose.connect('mongodb://localhost/test')
+mongoose.connect(process.env.DATABASE || 'mongodb://localhost/test')
 const Show = mongoose.model('show', {
   name: String,
   title: String,

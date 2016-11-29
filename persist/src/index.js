@@ -1,10 +1,9 @@
-import {app, router} from './init'
+import {app, router} from './bootstrap'
 import Show from './model'
 
 const port = process.env.PORT || 3000
 
 // https://scotch.io/tutorials/build-a-restful-api-using-node-and-express-4
-// TODO: connect to mongolab
 
 router.use(function(req, res, next) {
     // do logging
@@ -47,8 +46,8 @@ router.route('/shows')
         }
       })
     } else {
-      // console.log('skipping: ' + req.body.title)
-      // res.send('skipping: ' + req.body.title)
+      console.log('skipping: ' + req.body.title)
+      res.send('skipping: ' + req.body.title)
     }
   })
 })

@@ -43,18 +43,20 @@ export default {
   methods: {
     getShows() {
       // TODO: hide 720p if HDTV available
-      this.loading = true
+      var vm = this
+      vm.loading = true
       this.$http.get('/shows')
         .then((response) => {
-          this.loading = false
+          console.log(response)
+          vm.loading = false
           for (var d of response.data) {
             d.released = moment(d.addedOn).fromNow()
-            d.downloadCount = 0
-            this.tableData.push(d)
+              // d.downloadCount = 0
+            vm.tableData.push(d)
           }
         })
         .catch(function(response) {
-          this.loading = false
+          vm.loading = false
           console.log(response)
         })
     },
