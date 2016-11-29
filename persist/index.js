@@ -1,9 +1,20 @@
-var express = require('express')
-var app = express()
-var router = express.Router()
+import express from 'express'
+import bodyParser from 'body-parser'
+import mongoose from 'mongoose'
+import Show from './model'
+mongoose.Promise = global.Promise
+mongoose.connect('mongodb://localhost/test')
+const app = express()
+
+// configure app to use bodyParser()
+// this will let us get the data from a POST
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
+
+const port = process.env.PORT || 3000
+
+const router = express.Router()
 // https://scotch.io/tutorials/build-a-restful-api-using-node-and-express-4
-// TODO: add api route to fetch all db data
-// TODO: connect to mongoose localdb
 // TODO: connect to mongolab
 // TODO: add write to db to method
 
@@ -17,16 +28,16 @@ router.use(function(req, res, next) {
 router.route('/shows')
 // Get all shows
 .get(function(req, res, next) {
-  // Show.find(function(err, bears) {
-  //           if (err)
-  //               res.send(err);
-  //
-  //           res.json(bears);
-  //       });
+  Show.find(function(err, shows) {
+    if (err) {
+      res.send(err)
+    }
+    res.json(shows)
+  })
 })
 // Add new show
 .post(function(req, res, next) {
-  console.log(req)
+  console.log(req.body)
   // mongoose save
   res.send('Post')
 })
@@ -52,6 +63,6 @@ app.get('/', function(req, res) {
   res.send('Hello world')
 })
 
-var server = app.listen(3000, function() {
+var server = app.listen(port, function() {
   console.log('Express is listening to http://localhost:3000')
 })
