@@ -39,7 +39,7 @@ router.route('/shows')
       console.log('added: ' + req.body.title)
     }
   })
-  res.send('Post')
+  res.send('Saved: ' + req.body.title)
 })
 
 router.route('/shows/:id')
