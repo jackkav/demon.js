@@ -17,7 +17,12 @@ router.use(function(req, res, next) {
 router.route('/shows')
 // Get all shows
 .get(function(req, res, next) {
-  res.send('Get')
+  // Show.find(function(err, bears) {
+  //           if (err)
+  //               res.send(err);
+  //
+  //           res.json(bears);
+  //       });
 })
 // Add new show
 .post(function(req, res, next) {
