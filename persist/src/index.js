@@ -5,7 +5,6 @@ const port = process.env.PORT || 3000
 
 // https://scotch.io/tutorials/build-a-restful-api-using-node-and-express-4
 // TODO: connect to mongolab
-// TODO: add write to db to method
 
 router.use(function(req, res, next) {
     // do logging
@@ -46,8 +45,8 @@ router.route('/shows')
         }
       })
     } else {
-      console.log('already exists: ' + req.body.title)
-      res.send('already exists: ' + req.body.title)
+      console.log('skipping: ' + req.body.title)
+      res.send('skipping: ' + req.body.title)
     }
   })
 })
