@@ -7,8 +7,8 @@
   "author": "Jack Kavanagh",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon index.js",
-    "lint": "eslint index.js"
+    "start": "nodemon src/index.js",
+    "lint": "eslint src/*"
   },
   "dependencies": {
     "body-parser": "^1.15.2",
