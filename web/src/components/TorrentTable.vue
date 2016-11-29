@@ -9,15 +9,12 @@
     <p>liked shows: {{likedShows}}</p>
     <p>disliked shows: {{dislikedShows}}</p>
 
-    <el-table :data="tableData" border @current-change="downloading" style="width: 100%; cursor: pointer;" :row-class-name="tableRowClassName">
-      <!-- <el-table-column sortable prop="date" label="Released" width="120">
-  </el-table-column> -->
+    <el-table :data="showList" border @current-change="downloading" style="width: 100%; cursor: pointer;" :row-class-name="likedRowHighlight">
+
       <el-table-column prop="name" label="Name" align="left" @click="downloading">
       </el-table-column>
       <el-table-column prop="size" label="Size" width="140">
       </el-table-column>
-      <!-- <el-table-column prop="seeds" label="Seeds" width="100">
-  </el-table-column> -->
       <el-table-column prop="released" label="Released" width="140">
       </el-table-column>
       <el-table-column prop="downloadCount" label="Downloaded" width="130">
@@ -54,13 +51,13 @@ export default {
       vm.loading = true
       this.$http.get('/shows')
         .then((response) => {
-          console.log(response)
+          // console.log(response)
           vm.loading = false
           for (var d of response.data) {
             d.released = moment(d.addedOn).fromNow()
             if (vm.likedShows && vm.likedShows.indexOf(d.title)) d.star = true
               // d.downloadCount = 0
-            vm.tableData.push(d)
+            vm.showList.push(d)
           }
         })
         .catch(function(response) {
@@ -81,14 +78,15 @@ export default {
     },
     handleDelete(a, b) {
       event.stopPropagation()
-      this.tableData.splice(a, 1)
+        // TODO: filter from showList any matching title
+      this.showList.splice(a, 1)
       this.dislikedShows.push(b.title)
     },
     handleStar(a, b) {
       event.stopPropagation()
       this.likedShows.push(b.title)
     },
-    tableRowClassName(row, index) {
+    likedRowHighlight(row, index) {
       if (this.likedShows.indexOf(row.title) > -1) {
         return 'positive-row'
       }
@@ -98,7 +96,7 @@ export default {
   data() {
     return {
       loading: false,
-      tableData: [],
+      showList: [],
       dislikedShows: [],
       likedShows: [],
       counter: 0
