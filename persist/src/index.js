@@ -17,7 +17,9 @@ router.use(function(req, res, next) {
 router.route('/shows')
 // Get all shows
 .get(function(req, res, next) {
-  Show.find(function(err, shows) {
+  Show.find()
+  .select({_id: 0, __v: 0}) // ignore wierd mongoose auto added stuff
+  .exec((err, shows) => {
     if (err) {
       res.send(err)
     }
