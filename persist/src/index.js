@@ -47,8 +47,8 @@ router.route('/shows')
         }
       })
     } else {
-      console.log('skipping: ' + req.body.title)
-      res.send('skipping: ' + req.body.title)
+      // console.log('skipping: ' + req.body.title)
+      // res.send('skipping: ' + req.body.title)
     }
   })
 })

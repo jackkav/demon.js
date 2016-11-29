@@ -6,6 +6,7 @@
   <div id="example-1">
     <button v-on:click="counter += 1">Add 1</button>
     <p>The button above has been clicked {{ counter }} times.</p>
+    <p>disliked shows: {{unwantedShows}}</p>
   </div>
   <el-table :data="tableData" border @current-change="downloading" style="width: 100%; cursor: pointer;">
     <!-- <el-table-column sortable prop="date" label="Released" width="120">
@@ -71,6 +72,7 @@ export default {
     handleDelete(a, b) {
       event.stopPropagation()
       this.tableData.splice(a, 1)
+      this.unwantedShows.push(b.title)
     }
   },
   data() {
