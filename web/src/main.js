@@ -3,7 +3,7 @@ import ElementUI from 'element-ui'
 import App from './App'
 import VueRouter from 'vue-router'
 import routes from './routes'
-
+require('./bootstrap')
 Vue.use(VueRouter)
 
 Vue.use(ElementUI)

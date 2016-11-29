@@ -11,12 +11,12 @@ export default (input) => {
   const episodeIndex = input.indexOf(episode)
   const qualityIndex = input.indexOf(quality)
   const endOfTitleIndex = episodeIndex || qualityIndex
-  const title = input.slice(0, endOfTitleIndex - 1)
+  const name = input.slice(0, endOfTitleIndex - 1)
 
   return {
     episode,
     quality,
     size,
-    title
+    name
   }
 }
