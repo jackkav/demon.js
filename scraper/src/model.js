@@ -8,6 +8,8 @@ const Show = mongoose.model('show', {
     size: String,
     quality: String,
   },
-  magnet: String
+  magnet: String,
+  hash: String,
+  addedOn: Date
 })
 export default Show

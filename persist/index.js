@@ -1,9 +1,6 @@
 import express from 'express'
 import bodyParser from 'body-parser'
-import mongoose from 'mongoose'
 import Show from './model'
-mongoose.Promise = global.Promise
-mongoose.connect('mongodb://localhost/test')
 const app = express()
 
 // configure app to use bodyParser()
@@ -20,7 +17,7 @@ const router = express.Router()
 
 router.use(function(req, res, next) {
     // do logging
-  console.log('Something is happening.')
+  console.log('Something is happening.', req.method, req.url)
   next() // make sure we go to the next routes and don't stop here
 })
 
@@ -38,14 +35,29 @@ router.route('/shows')
 // Add new show
 .post(function(req, res, next) {
   console.log(req.body)
-  // mongoose save
+  const input = req.body
+  input.addedOn = new Date()
+  const oneShow = new Show(input)
+  oneShow.save(function (err) {
+    if (err) {
+      console.log(err)
+    } else {
+      console.log('added: ' + req.body.title)
+    }
+  })
   res.send('Post')
 })
 
 router.route('/shows/:id')
 // Get one show
 .get(function(req, res, next) {
-  res.send('Get id: ' + req.params.id)
+  const query = {'title': req.params.id}
+  Show.find(query, function(err, shows) {
+    if (err) {
+      res.send(err)
+    }
+    res.json(shows)
+  })
 })
 // Update one show
 .put(function(req, res, next) {
