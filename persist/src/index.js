@@ -18,6 +18,7 @@ router.route('/shows')
 .get(function(req, res, next) {
   Show.find()
   .select({_id: 0, __v: 0}) // ignore wierd mongoose auto added stuff
+  .sort({ addedOn: -1 })
   .exec((err, shows) => {
     if (err) {
       res.send(err)
