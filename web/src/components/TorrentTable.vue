@@ -4,11 +4,12 @@
     Loading...
   </p>
   <div v-else id="example-1">
-    <button v-on:click="counter += 1">Add 1</button>
-    <p>The button above has been clicked {{ counter }} times.</p>
-    <p>disliked shows: {{unwantedShows}}</p>
+    <!-- <button v-on:click="counter += 1">Add 1</button>
+    <p>The button above has been clicked {{ counter }} times.</p> -->
+    <p>liked shows: {{likedShows}}</p>
+    <p>disliked shows: {{dislikedShows}}</p>
 
-    <el-table :data="tableData" border @current-change="downloading" style="width: 100%; cursor: pointer;">
+    <el-table :data="tableData" border @current-change="downloading" style="width: 100%; cursor: pointer;" :row-class-name="tableRowClassName">
       <!-- <el-table-column sortable prop="date" label="Released" width="120">
   </el-table-column> -->
       <el-table-column prop="name" label="Name" align="left" @click="downloading">
@@ -21,10 +22,15 @@
       </el-table-column>
       <el-table-column prop="downloadCount" label="Downloaded" width="130">
       </el-table-column>
-      <el-table-column label="Ignore" width="140" :context="_self" inline-template>
-        <el-button size="small" type="danger" @click="handleDelete($index, row)">
-          Hide
-        </el-button>
+      <el-table-column width="180" :context="_self" inline-template>
+        <div>
+          <el-button size="small" type="success" @click="handleStar($index, row)">
+            Star
+          </el-button>
+          <el-button size="small" type="danger" @click="handleDelete($index, row)">
+            Hide
+          </el-button>
+        </div>
       </el-table-column>
     </el-table>
   </div>
@@ -34,7 +40,7 @@
 <script>
 import moment from 'moment'
 // import _ from 'lodash'
-
+// TODO 720p filter, highlight favorites, hide all, pagination?
 export default {
   created() {
     // fetch the data when the view is created and the data is
@@ -52,6 +58,7 @@ export default {
           vm.loading = false
           for (var d of response.data) {
             d.released = moment(d.addedOn).fromNow()
+            if (vm.likedShows && vm.likedShows.indexOf(d.title)) d.star = true
               // d.downloadCount = 0
             vm.tableData.push(d)
           }
@@ -75,16 +82,36 @@ export default {
     handleDelete(a, b) {
       event.stopPropagation()
       this.tableData.splice(a, 1)
-      this.unwantedShows.push(b.title)
+      this.dislikedShows.push(b.title)
+    },
+    handleStar(a, b) {
+      event.stopPropagation()
+      this.likedShows.push(b.title)
+    },
+    tableRowClassName(row, index) {
+      if (this.likedShows.indexOf(row.title) > -1) {
+        return 'positive-row'
+      }
+      return ''
     }
   },
   data() {
     return {
       loading: false,
       tableData: [],
-      unwantedShows: [],
+      dislikedShows: [],
+      likedShows: [],
       counter: 0
     }
   }
 }
 </script>
+<style>
+.el-table .info-row {
+  background: #c9e5f5;
+}
+
+.el-table .positive-row {
+  background: #e2f0e4;
+}
+</style>
