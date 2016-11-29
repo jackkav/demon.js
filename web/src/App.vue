@@ -1,8 +1,6 @@
 <template>
 <div id="app">
   <top-bar/>
-  <!-- <img src="./assets/logo.png">
-    <h1>{{ msg }}</h1> -->
   <router-view></router-view>
 </div>
 </template>
@@ -10,17 +8,11 @@
 <script>
 import TorrentTable from './components/TorrentTable'
 import TopBar from './components/TopBar'
-
 export default {
   name: 'app',
   components: {
     TorrentTable,
     TopBar,
-  },
-  data() {
-    return {
-      msg: 'Just playing with vue.js and element-ui!'
-    }
   }
 }
 </script>
