@@ -1,21 +1,39 @@
-import mongoose from 'mongoose'
-import Show from './model'
-mongoose.connect('mongodb://localhost/test')
+var express = require('express')
+var app = express()
+var router = express.Router()
 
-const shameless = new Show(
-  {
-    metadata:
-    { episode: 'S07E09',
-      quality: 'HDTV',
-      size: '410.63 MB',
-      title: 'Shameless US'
-    },
-    magnet: 'magnet:?xt=urn:btih:50960de9bf954602fa0850d431bd9ca89e04a17a&dn=Shameless.US.S07E09.HDTV.x264-LOL%5Beztv%5D.mkv%5Beztv%5D&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A80&tr=udp%3A%2F%2Fglotorrents.pw%3A6969%2Fannounce&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337%2Fannounce&tr=udp%3A%2F%2Fexodus.desync.com%3A6969'
-  })
-shameless.save(function (err) {
-  if (err) {
-    console.log(err)
-  } else {
-    console.log('meow')
-  }
+// TODO: add api route to fetch all db data
+// TODO: connect to mongoose localdb
+// TODO: connect to mongolab
+// TODO: add write to db to method
+
+// REST API
+router.route('/items')
+.get(function(req, res, next) {
+  res.send('Get')
+})
+.post(function(req, res, next) {
+  res.send('Post')
+})
+
+router.route('/items/:id')
+.get(function(req, res, next) {
+  res.send('Get id: ' + req.params.id)
+})
+.put(function(req, res, next) {
+  res.send('Put id: ' + req.params.id)
+})
+.delete(function(req, res, next) {
+  res.send('Delete id: ' + req.params.id)
+})
+
+app.use('/api', router)
+
+// index
+app.get('/', function(req, res) {
+  res.send('Hello world')
+})
+
+var server = app.listen(3000, function() {
+  console.log('Express is listening to http://localhost:3000')
 })
