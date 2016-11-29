@@ -3,6 +3,7 @@ mongoose.Promise = global.Promise
 mongoose.connect('mongodb://localhost/test')
 const Show = mongoose.model('show', {
   name: String,
+  title: String,
   episode: String,
   size: String,
   quality: String,

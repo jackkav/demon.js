@@ -1,18 +1,28 @@
 <template>
-<el-table :data="tableData" border @current-change="downloading" style="width: 100%; cursor: pointer;">
-  <!-- <el-table-column sortable prop="date" label="Released" width="120">
+<div>
+  <p v-if="loading">
+    Loading
+  </p>
+  <el-table :data="tableData" border @current-change="downloading" style="width: 100%; cursor: pointer;">
+    <!-- <el-table-column sortable prop="date" label="Released" width="120">
   </el-table-column> -->
-  <el-table-column prop="name" label="Name" align="left">
-  </el-table-column>
-  <el-table-column prop="size" label="Size" width="140">
-  </el-table-column>
-  <!-- <el-table-column prop="seeds" label="Seeds" width="100">
+    <el-table-column prop="name" label="Name" align="left" @click="downloading">
+    </el-table-column>
+    <el-table-column prop="size" label="Size" width="140">
+    </el-table-column>
+    <!-- <el-table-column prop="seeds" label="Seeds" width="100">
   </el-table-column> -->
-  <el-table-column prop="released" label="Released" width="140">
-  </el-table-column>
-  <!-- <el-table-column prop="downloadCount" label="Downloaded" width="130">
+    <el-table-column prop="released" label="Released" width="140">
+    </el-table-column>
+    <!-- <el-table-column prop="downloadCount" label="Downloaded" width="130">
   </el-table-column> -->
-</el-table>
+    <el-table-column label="Ignore" width="140" :context="_self" inline-template>
+      <el-button size="small" type="danger" @click="handleDelete($index, row)">
+        Hide
+      </el-button>
+    </el-table-column>
+  </el-table>
+</div>
 </template>
 
 <script>
@@ -31,13 +41,10 @@ export default {
       this.$http.get('/shows')
         .then((response) => {
           this.loading = false
-            // console.log('before', this.tableData)
           for (var d of response.data) {
             d.released = moment(d.addedOn).fromNow()
             this.tableData.push(d)
           }
-          // this.tableData.push(response.data[0])
-          // console.log('after', this.tableData)
         })
         .catch(function(response) {
           this.loading = false
@@ -52,12 +59,17 @@ export default {
       }
       this.$notify(data)
         // location.href = val.magnet
+    },
+    handleDelete(a, b) {
+      console.log(a, b)
+        // this.unwantedShows.push(b)
     }
   },
   data() {
     return {
       loading: false,
-      tableData: []
+      tableData: [],
+      unwantedShows: []
     }
   }
 }
