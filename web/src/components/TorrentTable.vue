@@ -3,6 +3,10 @@
   <p v-if="loading">
     Loading
   </p>
+  <div id="example-1">
+    <button v-on:click="counter += 1">Add 1</button>
+    <p>The button above has been clicked {{ counter }} times.</p>
+  </div>
   <el-table :data="tableData" border @current-change="downloading" style="width: 100%; cursor: pointer;">
     <!-- <el-table-column sortable prop="date" label="Released" width="120">
   </el-table-column> -->
@@ -14,8 +18,8 @@
   </el-table-column> -->
     <el-table-column prop="released" label="Released" width="140">
     </el-table-column>
-    <!-- <el-table-column prop="downloadCount" label="Downloaded" width="130">
-  </el-table-column> -->
+    <el-table-column prop="downloadCount" label="Downloaded" width="130">
+    </el-table-column>
     <el-table-column label="Ignore" width="140" :context="_self" inline-template>
       <el-button size="small" type="danger" @click="handleDelete($index, row)">
         Hide
@@ -61,15 +65,16 @@ export default {
         // location.href = val.magnet
     },
     handleDelete(a, b) {
-      console.log(a, b)
-        // this.unwantedShows.push(b)
+      event.stopPropagation()
+      this.tableData.splice(a, 1)
     }
   },
   data() {
     return {
       loading: false,
       tableData: [],
-      unwantedShows: []
+      unwantedShows: [],
+      counter: 0
     }
   }
 }
