@@ -1,16 +1,8 @@
-import express from 'express'
-import bodyParser from 'body-parser'
+import {app, router} from './init'
 import Show from './model'
-const app = express()
-
-// configure app to use bodyParser()
-// this will let us get the data from a POST
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(bodyParser.json())
 
 const port = process.env.PORT || 3000
 
-const router = express.Router()
 // https://scotch.io/tutorials/build-a-restful-api-using-node-and-express-4
 // TODO: connect to mongolab
 // TODO: add write to db to method
@@ -51,7 +43,7 @@ router.route('/shows')
 router.route('/shows/:id')
 // Get one show
 .get(function(req, res, next) {
-  const query = {'title': req.params.id}
+  const query = {'hash': req.params.id}
   Show.find(query, function(err, shows) {
     if (err) {
       res.send(err)
@@ -61,7 +53,15 @@ router.route('/shows/:id')
 })
 // Update one show
 .put(function(req, res, next) {
-  res.send('Put id: ' + req.params.id)
+  const query = {'hash': req.params.id}
+  const input = req.body
+  input.updatedOn = new Date()
+  Show.findOneAndUpdate(query, input, {upsert: true}, (err, doc) => {
+    if (err) {
+      res.send(err)
+    }
+    res.send('Updated')
+  })
 })
 // Delete on show
 .delete(function(req, res, next) {
@@ -75,6 +75,6 @@ app.get('/', function(req, res) {
   res.send('Hello world')
 })
 
-var server = app.listen(port, function() {
+app.listen(port, function() {
   console.log('Express is listening to http://localhost:3000')
 })
