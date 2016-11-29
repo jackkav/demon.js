@@ -28,18 +28,28 @@ router.route('/shows')
 })
 // Add new show
 .post(function(req, res, next) {
-  console.log(req.body)
+  // console.log(req.body)
   const input = req.body
-  input.addedOn = new Date()
-  const oneShow = new Show(input)
-  oneShow.save(function (err) {
+  Show.find({hash: input.hash}, (err, existingShows) => {
     if (err) {
-      console.log(err)
+      res.send(err)
+    }
+    if (!existingShows.length) {
+      input.addedOn = new Date()
+      const oneShow = new Show(input)
+      oneShow.save(function (err) {
+        if (err) {
+          console.log(err)
+        } else {
+          console.log('added: ' + req.body.title)
+          res.send('added: ' + req.body.title)
+        }
+      })
     } else {
-      console.log('added: ' + req.body.title)
+      console.log('already exists: ' + req.body.title)
+      res.send('already exists: ' + req.body.title)
     }
   })
-  res.send('Saved: ' + req.body.title)
 })
 
 router.route('/shows/:id')
