@@ -26,6 +26,7 @@ router.route('/shows')
     res.json(shows)
   })
 })
+// TODO: convert this to async await syntax to avoid callbacks?
 // Add new show
 .post(function(req, res, next) {
   // console.log(req.body)

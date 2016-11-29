@@ -41,12 +41,14 @@ export default {
   },
   methods: {
     getShows() {
+      // TODO: hide 720p if HDTV available
       this.loading = true
       this.$http.get('/shows')
         .then((response) => {
           this.loading = false
           for (var d of response.data) {
             d.released = moment(d.addedOn).fromNow()
+            d.downloadCount = 0
             this.tableData.push(d)
           }
         })
@@ -55,13 +57,15 @@ export default {
           console.log(response)
         })
     },
-    downloading(val) {
+    downloading(val, i) {
       let data = {
         title: 'Downloading...',
         message: val.name,
         duration: 6000
       }
       this.$notify(data)
+        // TODO: increment download counter and send to db
+        // TODO: re-add magnet link
         // location.href = val.magnet
     },
     handleDelete(a, b) {

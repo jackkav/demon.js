@@ -978,6 +978,10 @@ core-util-is@~1.0.0:
   version "1.0.2"
   resolved "http://r.cnpmjs.org/core-util-is/download/core-util-is-1.0.2.tgz#b5fd54220aa2bc5ab57aab7140c940754503c1a7"
 
+cron-parser@1.1.0:
+  version "1.1.0"
+  resolved "http://r.cnpmjs.org/cron-parser/download/cron-parser-1.1.0.tgz#075b84c459c155e8c482ab4d56aff99dae58352e"
+
 cryptiles@2.x.x:
   version "2.0.5"
   resolved "http://r.cnpmjs.org/cryptiles/download/cryptiles-2.0.5.tgz#3bdfecdc608147c1c67202fa291e7dca59eaa3b8"
@@ -2355,6 +2359,10 @@ lodash@^4.0.0, lodash@^4.2.0, lodash@^4.3.0:
   version "4.17.2"
   resolved "http://r.cnpmjs.org/lodash/download/lodash-4.17.2.tgz#34a3055babe04ce42467b607d700072c7ff6bf42"
 
+long-timeout@0.0.2:
+  version "0.0.2"
+  resolved "http://r.cnpmjs.org/long-timeout/download/long-timeout-0.0.2.tgz#f36449ba89629d13a7a2b2523a4db9dd66e3ff68"
+
 longest@^1.0.1:
   version "1.0.1"
   resolved "http://r.cnpmjs.org/longest/download/longest-1.0.1.tgz#30a0b2da38f73770e8294a0d22e6625ed77d0097"
@@ -2507,6 +2515,13 @@ node-pre-gyp@^0.6.29:
     semver "~5.3.0"
     tar "~2.2.1"
     tar-pack "~3.3.0"
+
+node-schedule@^1.2.0:
+  version "1.2.0"
+  resolved "http://r.cnpmjs.org/node-schedule/download/node-schedule-1.2.0.tgz#f03d4ebe71b0573e1708ddae0aa45d1658450cf1"
+  dependencies:
+    cron-parser "1.1.0"
+    long-timeout "0.0.2"
 
 nopt@3.x, nopt@~3.0.6:
   version "3.0.6"
