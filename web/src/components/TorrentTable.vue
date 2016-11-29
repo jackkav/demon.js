@@ -4,9 +4,7 @@
   </el-table-column> -->
   <el-table-column prop="name" label="Name" align="left">
   </el-table-column>
-  <el-table-column prop="title" label="Name" align="left">
-  </el-table-column>
-  <el-table-column prop="size" label="Size" width="100">
+  <el-table-column prop="size" label="Size" width="140">
   </el-table-column>
   <!-- <el-table-column prop="seeds" label="Seeds" width="100">
   </el-table-column> -->
@@ -30,11 +28,13 @@ export default {
       this.$notify(data)
         // location.href = val.magnet
       this.$http.get('/shows')
-        .then(({
-          data
-        }) => {
-          this.tableData = data
-          console.log(data)
+        .then((response) => {
+          console.log('before', this.tableData)
+          for (var d of response.data) {
+            this.tableData.push(d)
+          }
+          // this.tableData.push(response.data[0])
+          console.log('after', this.tableData)
         })
         .catch(function(response) {
           console.log(response)
@@ -47,31 +47,10 @@ export default {
       tableData: [{
         date: '2016-06-03',
         released: moment('2016-06-03').fromNow(),
-        title: 'Game of Thrones S01E01 REPACK HDTV x264-MiNDTHEGAP [eztv]',
+        name: 'Game of Thrones S01E01 REPACK HDTV x264-MiNDTHEGAP [eztv]',
         size: '100 MB',
         seeds: '10',
         downloadCount: 0,
-        magnet: 'magnet:?xt=urn:btih:c8519027996ef2a57d49cc81d76bd708646a829f&dn=The.Mindy.Project.S05E05.HDTV.x264-KILLERS%5Beztv%5D.mkv%5Beztv%5D&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A80&tr=udp%3A%2F%2Fglotorrents.pw%3A6969%2Fannounce&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337%2Fannounce&tr=udp%3A%2F%2Fexodus.desync.com%3A6969'
-      }, {
-        date: '2016-05-03',
-        released: moment('2016-05-03').fromNow(),
-        title: 'The Walking Dead S01E01 REPACK HDTV x264-MiNDTHEGAP [eztv]',
-        size: '100 MB',
-        seeds: '10',
-        magnet: 'magnet:?xt=urn:btih:c8519027996ef2a57d49cc81d76bd708646a829f&dn=The.Mindy.Project.S05E05.HDTV.x264-KILLERS%5Beztv%5D.mkv%5Beztv%5D&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A80&tr=udp%3A%2F%2Fglotorrents.pw%3A6969%2Fannounce&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337%2Fannounce&tr=udp%3A%2F%2Fexodus.desync.com%3A6969'
-      }, {
-        date: '2016-04-03',
-        released: moment('2016-04-03').fromNow(),
-        title: 'Tosh 0 S08E29 REPACK HDTV x264-MiNDTHEGAP [eztv]',
-        size: '100 MB',
-        seeds: '10',
-        magnet: 'magnet:?xt=urn:btih:c8519027996ef2a57d49cc81d76bd708646a829f&dn=The.Mindy.Project.S05E05.HDTV.x264-KILLERS%5Beztv%5D.mkv%5Beztv%5D&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A80&tr=udp%3A%2F%2Fglotorrents.pw%3A6969%2Fannounce&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337%2Fannounce&tr=udp%3A%2F%2Fexodus.desync.com%3A6969'
-      }, {
-        date: '2016-02-03',
-        released: moment('2016-02-03').fromNow(),
-        title: 'James Corden 2016 11 22 Aaron Eckhart HDTV x264-CROOKS [eztv]',
-        size: '100 MB',
-        seeds: '10',
         magnet: 'magnet:?xt=urn:btih:c8519027996ef2a57d49cc81d76bd708646a829f&dn=The.Mindy.Project.S05E05.HDTV.x264-KILLERS%5Beztv%5D.mkv%5Beztv%5D&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A80&tr=udp%3A%2F%2Fglotorrents.pw%3A6969%2Fannounce&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337%2Fannounce&tr=udp%3A%2F%2Fexodus.desync.com%3A6969'
       }]
     }

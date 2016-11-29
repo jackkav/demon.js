@@ -40,13 +40,13 @@ router.route('/shows')
         if (err) {
           console.log(err)
         } else {
-          console.log('added: ' + req.body.name)
-          res.send('added: ' + req.body.name)
+          console.log('added: ' + req.body.title)
+          res.send('added: ' + req.body.title)
         }
       })
     } else {
-      console.log('skipping: ' + req.body.name)
-      res.send('skipping: ' + req.body.name)
+      console.log('skipping: ' + req.body.title)
+      res.send('skipping: ' + req.body.title)
     }
   })
 })

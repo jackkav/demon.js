@@ -16,9 +16,9 @@ request({uri: 'http://www.eztv.ag'}, (error, response, body) => {
 
   $('.magnet').each(function() {
     const link = $(this)
-    const title = link.attr('title')
+    const name = link.attr('title')
     const magnet = link.attr('href')
-    const output = parse(title)
+    const output = parse(name)
     output.hash = magnet.match(/(?![magnet:?xt=urn:btih:])(.*)(?=&dn)/)[0]
     output.magnet = magnet
 
