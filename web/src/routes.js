@@ -8,6 +8,9 @@ export default [
   }, {
     path: '/about',
     component: About
+  }, {
+    path: '/settings',
+    component: About
   },
   {
     path: '/*',

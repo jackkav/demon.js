@@ -7,6 +7,10 @@
           <router-link to="/">Home page</router-link>
         </el-menu-item>
 
+        <el-menu-item index="settings">
+          <router-link to="/settings">Settings</router-link>
+        </el-menu-item>
+
         <el-menu-item index="about">
           <router-link to="/about">About</router-link>
         </el-menu-item>

@@ -87,6 +87,7 @@ export default {
       this.filteredShowList = this.showList.filter(x => x.title !== b.title)
       this.likedShows = this.likedShows.filter(x => x !== b.title)
       this.dislikedShows.push(b.title)
+      localStorage.setItem('demon.disliked', JSON.stringify(this.dislikedShows))
       let data = {
         title: b.title,
         message: 'Disliked and hidden.',
@@ -98,6 +99,7 @@ export default {
     handleStar(a, b) {
       event.stopPropagation()
       this.likedShows.push(b.title)
+      localStorage.setItem('demon.liked', JSON.stringify(this.likedShows))
       let notifyContent = {
         title: b.title,
         message: 'Liked and highlighted',
@@ -130,8 +132,8 @@ export default {
       loading: false,
       showList: [],
       filteredShowList: [],
-      dislikedShows: [],
-      likedShows: [],
+      dislikedShows: JSON.parse(localStorage.getItem('demon.disliked')) || [],
+      likedShows: JSON.parse(localStorage.getItem('demon.liked')) || [],
       counter: 0,
       show720p: false
     }
