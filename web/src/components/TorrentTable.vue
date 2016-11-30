@@ -34,8 +34,6 @@ import moment from 'moment'
 // TODO 720p filter, pagination?
 export default {
   created() {
-    // fetch the data when the view is created and the data is
-    // already being observed
     this.fetchShows()
   },
   methods: {
@@ -84,17 +82,19 @@ export default {
     },
     handleDelete(a, row) {
       event.stopPropagation()
-      this.filteredShowList = this.showList.filter(x => x.title !== row.title)
-      this.likedShows = this.likedShows.filter(x => x !== row.title)
+        // add to dislike list
       if (!this.dislikedShows.includes(row.title)) this.dislikedShows.push(row.title)
       localStorage.setItem('demon.disliked', JSON.stringify(this.dislikedShows))
+        // remove from main list
+      this.filteredShowList = this.showList.filter(x => !this.dislikedShows.includes(x.title))
+        // remove from liked list
+      this.likedShows = this.likedShows.filter(x => x !== row.title)
       localStorage.setItem('demon.liked', JSON.stringify(this.likedShows))
       const msg = {
         message: 'Hidden ' + row.title,
         type: 'warning'
       }
       this.$message(msg)
-        // TODO: put dislikedShows to api, debounce 1000
     },
     handleStar(a, row) {
       event.stopPropagation()
@@ -105,7 +105,6 @@ export default {
         type: 'success'
       }
       this.$message(msg)
-        // TODO: put likedShows to api, debounce 1000
     },
     likedRowHighlight(row, index) {
       if (this.likedShows.includes(row.title)) {
