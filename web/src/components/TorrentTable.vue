@@ -1,12 +1,14 @@
 <template>
 <div>
-
-  <div id="example-1">
+  <div>
     <p>liked shows: {{likedShows}}</p>
     <p>disliked shows: {{dislikedShows}}</p>
-
-    <el-table v-loading.body="loading" element-loading-text="Loading..." :data="showList" border @current-change="downloading" style="width: 100%; cursor: pointer;" :row-class-name="likedRowHighlight">
+    <el-switch v-model="show720p" on-text="720p" off-text="HDTV" :width="70" @change="qualitySwitch">
+    </el-switch>
+    <el-table v-loading.body="loading" element-loading-text="Loading..." :data="filteredShowList" border @current-change="downloading" style="width: 100%; cursor: pointer;" :row-class-name="likedRowHighlight">
       <el-table-column prop="name" label="Name" align="left" @click="downloading">
+      </el-table-column>
+      <el-table-column prop="quality" label="Quality" width="120">
       </el-table-column>
       <el-table-column prop="size" label="Size" width="120">
       </el-table-column>
@@ -31,15 +33,15 @@
 
 <script>
 import moment from 'moment'
-// TODO 720p filter, highlight favorites, hide all, pagination?
+// TODO 720p filter, pagination?
 export default {
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
-    this.getShows()
+    this.fetchShows()
   },
   methods: {
-    getShows() {
+    fetchShows() {
       // TODO: hide 720p if HDTV available
       var vm = this
       vm.loading = true
@@ -52,6 +54,7 @@ export default {
             if (vm.likedShows && vm.likedShows.indexOf(d.title)) d.star = true
             d.downloadCount = 0
             vm.showList.push(d)
+            vm.filteredShowList.push(d)
           }
         })
         .catch(function(response) {
@@ -60,21 +63,28 @@ export default {
         })
     },
     downloading(val, i) {
-      let data = {
+      val.downloadCount += 1
+      let notifyContent = {
         title: 'Downloading...',
         message: val.name,
         duration: 3000
       }
-      this.$notify(data)
+      this.$notify(notifyContent)
 
-      val.downloadCount++
-        // TODO: put new download count to api, debounce 1000
-        // TODO: re-add magnet link
-        // location.href = val.magnet
+      let toUpdate = {
+        clicks: val.downloadCount
+      }
+      this.$http.put('/shows/' + val.hash, toUpdate)
+        .catch(function(response) {
+          console.log(response)
+        })
+
+      // TODO: re-add magnet link
+      // location.href = val.magnet
     },
     handleDelete(a, b) {
       event.stopPropagation()
-      this.showList = this.showList.filter(x => x.title !== b.title)
+      this.filteredShowList = this.showList.filter(x => x.title !== b.title)
       this.likedShows = this.likedShows.filter(x => x !== b.title)
       this.dislikedShows.push(b.title)
       let data = {
@@ -88,12 +98,12 @@ export default {
     handleStar(a, b) {
       event.stopPropagation()
       this.likedShows.push(b.title)
-      let data = {
+      let notifyContent = {
         title: b.title,
         message: 'Liked and highlighted',
         duration: 3000
       }
-      this.$notify(data)
+      this.$notify(notifyContent)
         // TODO: put likedShows to api, debounce 1000
     },
     likedRowHighlight(row, index) {
@@ -101,15 +111,29 @@ export default {
         return 'info-row'
       }
       return ''
+    },
+    qualitySwitch(value) {
+      console.log(value)
+      const show720p = value
+        // TODO: only filter if two exist TDD
+
+      if (show720p) {
+        // if two exist with same time and episode then filter out quality of those
+        this.filteredShowList = this.showList.filter(x => x.quality === '720p')
+      } else {
+        this.filteredShowList = this.showList.filter(x => x.quality !== '720p')
+      }
     }
   },
   data() {
     return {
       loading: false,
       showList: [],
+      filteredShowList: [],
       dislikedShows: [],
       likedShows: [],
-      counter: 0
+      counter: 0,
+      show720p: false
     }
   }
 }
