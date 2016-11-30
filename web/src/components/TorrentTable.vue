@@ -1,14 +1,11 @@
 <template>
 <div>
-  <p v-if="loading">
-    Loading...
-  </p>
-  <div v-else id="example-1">
+
+  <div id="example-1">
     <p>liked shows: {{likedShows}}</p>
     <p>disliked shows: {{dislikedShows}}</p>
 
-    <el-table :data="showList" border @current-change="downloading" style="width: 100%; cursor: pointer;" :row-class-name="likedRowHighlight">
-
+    <el-table v-loading.body="loading" element-loading-text="Loading..." :data="showList" border @current-change="downloading" style="width: 100%; cursor: pointer;" :row-class-name="likedRowHighlight">
       <el-table-column prop="name" label="Name" align="left" @click="downloading">
       </el-table-column>
       <el-table-column prop="size" label="Size" width="120">
@@ -66,7 +63,7 @@ export default {
       let data = {
         title: 'Downloading...',
         message: val.name,
-        duration: 6000
+        duration: 3000
       }
       this.$notify(data)
 
@@ -80,11 +77,23 @@ export default {
       this.showList = this.showList.filter(x => x.title !== b.title)
       this.likedShows = this.likedShows.filter(x => x !== b.title)
       this.dislikedShows.push(b.title)
+      let data = {
+        title: b.title,
+        message: 'Disliked and hidden.',
+        duration: 3000
+      }
+      this.$notify(data)
         // TODO: put dislikedShows to api, debounce 1000
     },
     handleStar(a, b) {
       event.stopPropagation()
       this.likedShows.push(b.title)
+      let data = {
+        title: b.title,
+        message: 'Liked and highlighted',
+        duration: 3000
+      }
+      this.$notify(data)
         // TODO: put likedShows to api, debounce 1000
     },
     likedRowHighlight(row, index) {

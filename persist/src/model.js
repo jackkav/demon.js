@@ -10,6 +10,7 @@ const Show = mongoose.model('show', {
   magnet: String,
   hash: String,
   addedOn: Date,
-  updatedOn: Date
+  updatedOn: Date,
+  clicks: Number
 })
 export default Show

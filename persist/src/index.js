@@ -7,7 +7,7 @@ const port = process.env.PORT || 3000
 
 router.use(function(req, res, next) {
     // do logging
-  console.log('Something is happening.', req.method, req.url)
+  console.log('Request: ', req.method, req.url)
   next() // make sure we go to the next routes and don't stop here
 })
 
@@ -77,7 +77,13 @@ router.route('/shows/:id')
 })
 // Delete on show
 .delete(function(req, res, next) {
-  res.send('Delete id: ' + req.params.id)
+  const query = {'hash': req.params.id}
+  Show.remove(query, (err) => {
+    if (err) {
+      res.send(err)
+    }
+    res.send('Deleted')
+  })
 })
 
 app.use('/api', router)
