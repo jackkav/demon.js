@@ -80,26 +80,27 @@ export default {
       // TODO: re-add magnet link
       // location.href = val.magnet
     },
-    handleDelete(a, b) {
+    handleDelete(a, row) {
       event.stopPropagation()
-      this.filteredShowList = this.showList.filter(x => x.title !== b.title)
-      this.likedShows = this.likedShows.filter(x => x !== b.title)
-      this.dislikedShows.push(b.title)
+      this.filteredShowList = this.showList.filter(x => x.title !== row.title)
+      this.likedShows = this.likedShows.filter(x => x !== row.title)
+      this.dislikedShows.push(row.title)
       localStorage.setItem('demon.disliked', JSON.stringify(this.dislikedShows))
+      localStorage.setItem('demon.liked', JSON.stringify(this.likedShows))
       let data = {
-        title: b.title,
+        title: row.title,
         message: 'Disliked and hidden.',
         duration: 3000
       }
       this.$notify(data)
         // TODO: put dislikedShows to api, debounce 1000
     },
-    handleStar(a, b) {
+    handleStar(a, row) {
       event.stopPropagation()
-      this.likedShows.push(b.title)
+      if (!this.likedShows.includes(row.title)) this.likedShows.push(row.title)
       localStorage.setItem('demon.liked', JSON.stringify(this.likedShows))
       let notifyContent = {
-        title: b.title,
+        title: row.title,
         message: 'Liked and highlighted',
         duration: 3000
       }
@@ -113,7 +114,7 @@ export default {
       return ''
     },
     qualitySwitch(value) {
-      console.log(value)
+      // console.log(value)
       const show720p = value
         // TODO: only filter if two exist TDD
 
