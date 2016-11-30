@@ -12,7 +12,7 @@
       </el-table-column>
       <el-table-column prop="released" label="Released" width="160">
       </el-table-column>
-      <el-table-column prop="downloadCount" label="Downloaded" width="125">
+      <el-table-column prop="clicks" label="Downloaded" width="125">
       </el-table-column>
       <el-table-column width="160" :context="_self" inline-template>
         <div>
@@ -49,7 +49,6 @@ export default {
             if (!this.dislikedShows.includes(d.title)) {
               d.released = moment(d.addedOn).fromNow()
               if (vm.likedShows && vm.likedShows.indexOf(d.title)) d.star = true
-              d.downloadCount = 0
               vm.showList.push(d)
               vm.filteredShowList.push(d)
             }
@@ -61,7 +60,7 @@ export default {
         })
     },
     downloading(val, i) {
-      val.downloadCount += 1
+      val.clicks += 1
       let notifyContent = {
         title: 'Downloading...',
         message: val.name,
@@ -70,7 +69,7 @@ export default {
       this.$notify.success(notifyContent)
 
       let toUpdate = {
-        clicks: val.downloadCount
+        clicks: val.clicks
       }
       this.$http.put('/shows/' + val.hash, toUpdate)
         .catch(function(response) {
@@ -132,7 +131,6 @@ export default {
       filteredShowList: [],
       dislikedShows: JSON.parse(localStorage.getItem('demon.disliked')) || [],
       likedShows: JSON.parse(localStorage.getItem('demon.liked')) || [],
-      counter: 0,
       show720p: false
     }
   }
