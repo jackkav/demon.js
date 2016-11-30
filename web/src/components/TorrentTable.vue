@@ -56,7 +56,7 @@ export default {
           for (var d of response.data) {
             d.released = moment(d.addedOn).fromNow()
             if (vm.likedShows && vm.likedShows.indexOf(d.title)) d.star = true
-              // d.downloadCount = 0
+            d.downloadCount = 0
             vm.showList.push(d)
           }
         })
@@ -73,6 +73,8 @@ export default {
       }
       this.$notify(data)
         // TODO: increment download counter and send to db
+      val.downloadCount++
+
         // TODO: re-add magnet link
         // location.href = val.magnet
     },
