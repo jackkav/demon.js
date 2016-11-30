@@ -1,8 +1,6 @@
 <template>
 <div>
   <div>
-    <p>liked shows: {{likedShows}}</p>
-    <p>disliked shows: {{dislikedShows}}</p>
     <el-switch v-model="show720p" on-text="720p" off-text="HDTV" :width="70" @change="qualitySwitch">
     </el-switch>
     <el-table v-loading.body="loading" element-loading-text="Loading..." :data="filteredShowList" border @current-change="downloading" style="width: 100%; cursor: pointer;" :row-class-name="likedRowHighlight">

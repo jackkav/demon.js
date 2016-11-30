@@ -10,7 +10,7 @@ export default [
     component: About
   }, {
     path: '/settings',
-    component: About
+    component: require('components/Settings.vue')
   },
   {
     path: '/*',
