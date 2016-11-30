@@ -48,11 +48,13 @@ export default {
           // console.log(response)
           vm.loading = false
           for (var d of response.data) {
-            d.released = moment(d.addedOn).fromNow()
-            if (vm.likedShows && vm.likedShows.indexOf(d.title)) d.star = true
-            d.downloadCount = 0
-            vm.showList.push(d)
-            vm.filteredShowList.push(d)
+            if (!this.dislikedShows.includes(d.title)) {
+              d.released = moment(d.addedOn).fromNow()
+              if (vm.likedShows && vm.likedShows.indexOf(d.title)) d.star = true
+              d.downloadCount = 0
+              vm.showList.push(d)
+              vm.filteredShowList.push(d)
+            }
           }
         })
         .catch(function(response) {
@@ -67,7 +69,7 @@ export default {
         message: val.name,
         duration: 3000
       }
-      this.$notify(notifyContent)
+      this.$notify.success(notifyContent)
 
       let toUpdate = {
         clicks: val.downloadCount
@@ -84,27 +86,25 @@ export default {
       event.stopPropagation()
       this.filteredShowList = this.showList.filter(x => x.title !== row.title)
       this.likedShows = this.likedShows.filter(x => x !== row.title)
-      this.dislikedShows.push(row.title)
+      if (!this.dislikedShows.includes(row.title)) this.dislikedShows.push(row.title)
       localStorage.setItem('demon.disliked', JSON.stringify(this.dislikedShows))
       localStorage.setItem('demon.liked', JSON.stringify(this.likedShows))
-      let data = {
-        title: row.title,
-        message: 'Disliked and hidden.',
-        duration: 3000
+      const msg = {
+        message: 'Hidden ' + row.title,
+        type: 'warning'
       }
-      this.$notify(data)
+      this.$message(msg)
         // TODO: put dislikedShows to api, debounce 1000
     },
     handleStar(a, row) {
       event.stopPropagation()
       if (!this.likedShows.includes(row.title)) this.likedShows.push(row.title)
       localStorage.setItem('demon.liked', JSON.stringify(this.likedShows))
-      let notifyContent = {
-        title: row.title,
-        message: 'Liked and highlighted',
-        duration: 3000
+      const msg = {
+        message: 'Liked ' + row.title,
+        type: 'success'
       }
-      this.$notify(notifyContent)
+      this.$message(msg)
         // TODO: put likedShows to api, debounce 1000
     },
     likedRowHighlight(row, index) {
