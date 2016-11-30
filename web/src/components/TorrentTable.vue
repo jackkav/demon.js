@@ -4,8 +4,6 @@
     Loading...
   </p>
   <div v-else id="example-1">
-    <!-- <button v-on:click="counter += 1">Add 1</button>
-    <p>The button above has been clicked {{ counter }} times.</p> -->
     <p>liked shows: {{likedShows}}</p>
     <p>disliked shows: {{dislikedShows}}</p>
 
@@ -72,16 +70,15 @@ export default {
         duration: 6000
       }
       this.$notify(data)
-        // TODO: increment download counter and send to db
-      val.downloadCount++
 
+      val.downloadCount++
+        // TODO: put new download count to api
         // TODO: re-add magnet link
         // location.href = val.magnet
     },
     handleDelete(a, b) {
       event.stopPropagation()
-        // TODO: filter from showList any matching title
-      this.showList.splice(a, 1)
+      this.showList = this.showList.filter(x => x.title !== b.title)
       this.dislikedShows.push(b.title)
     },
     handleStar(a, b) {
