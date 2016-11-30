@@ -11,13 +11,13 @@
 
       <el-table-column prop="name" label="Name" align="left" @click="downloading">
       </el-table-column>
-      <el-table-column prop="size" label="Size" width="140">
+      <el-table-column prop="size" label="Size" width="120">
       </el-table-column>
-      <el-table-column prop="released" label="Released" width="140">
+      <el-table-column prop="released" label="Released" width="160">
       </el-table-column>
-      <el-table-column prop="downloadCount" label="Downloaded" width="130">
+      <el-table-column prop="downloadCount" label="Downloaded" width="125">
       </el-table-column>
-      <el-table-column width="180" :context="_self" inline-template>
+      <el-table-column width="160" :context="_self" inline-template>
         <div>
           <el-button size="small" type="success" @click="handleStar($index, row)">
             Star
@@ -34,7 +34,6 @@
 
 <script>
 import moment from 'moment'
-// import _ from 'lodash'
 // TODO 720p filter, highlight favorites, hide all, pagination?
 export default {
   created() {
@@ -72,22 +71,25 @@ export default {
       this.$notify(data)
 
       val.downloadCount++
-        // TODO: put new download count to api
+        // TODO: put new download count to api, debounce 1000
         // TODO: re-add magnet link
         // location.href = val.magnet
     },
     handleDelete(a, b) {
       event.stopPropagation()
       this.showList = this.showList.filter(x => x.title !== b.title)
+      this.likedShows = this.likedShows.filter(x => x !== b.title)
       this.dislikedShows.push(b.title)
+        // TODO: put dislikedShows to api, debounce 1000
     },
     handleStar(a, b) {
       event.stopPropagation()
       this.likedShows.push(b.title)
+        // TODO: put likedShows to api, debounce 1000
     },
     likedRowHighlight(row, index) {
-      if (this.likedShows.indexOf(row.title) > -1) {
-        return 'positive-row'
+      if (this.likedShows.includes(row.title)) {
+        return 'info-row'
       }
       return ''
     }
