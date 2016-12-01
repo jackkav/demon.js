@@ -21,13 +21,13 @@
     </el-table-column>
     <el-table-column prop="clicks" label="Downloaded" width="125">
     </el-table-column>
-    <el-table-column width="160" :context="_self" inline-template>
+    <el-table-column width="180" :context="_self" inline-template>
       <div>
         <el-button size="small" type="success" @click="handleStar($index, row)">
-          Star
+          Watching
         </el-button>
         <el-button size="small" type="danger" @click="handleDelete($index, row)">
-          Hide
+          Ignore
         </el-button>
       </div>
     </el-table-column>
@@ -96,7 +96,7 @@ export default {
       this.likedShows = this.likedShows.filter(x => x !== row.title)
       localStorage.setItem('demon.liked', JSON.stringify(this.likedShows))
       const msg = {
-        message: 'Hidden ' + row.title,
+        message: 'You don\'t much care for ' + row.title,
         type: 'warning'
       }
       this.$message(msg)
@@ -106,7 +106,7 @@ export default {
       if (!this.likedShows.includes(row.title)) this.likedShows.push(row.title)
       localStorage.setItem('demon.liked', JSON.stringify(this.likedShows))
       const msg = {
-        message: 'Liked ' + row.title,
+        message: 'You\'re watching ' + row.title + ' huh...',
         type: 'success'
       }
       this.$message(msg)

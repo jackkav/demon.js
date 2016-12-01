@@ -3,7 +3,7 @@
   <el-col :span="12">
     <el-card class="box-card">
       <div slot="header" class="clearfix">
-        <span style="line-height: 36px;">Liked</span>
+        <span style="line-height: 36px;">Watching</span>
         <el-button style="float: right;" type="danger" icon="delete" @click="deleteAllLiked">Delete All</el-button>
       </div>
       <el-tag v-for="title in likedShows" :closable="true" :key="title" type="primary" :close-transition="false" @close="handleLikedClose(title)">
@@ -14,7 +14,7 @@
   <el-col :span="12">
     <el-card class="box-card">
       <div slot="header" class="clearfix">
-        <span style="line-height: 36px;">Disliked</span>
+        <span style="line-height: 36px;">Ignoring</span>
         <el-button style="float: right;" type="danger" icon="delete" @click="deleteAllDisliked">Delete All</el-button>
       </div>
       <el-tag v-for="title in dislikedShows" :closable="true" :key="title" type="danger" :close-transition="false" @close="handleDislikedClose(title)">
