@@ -1,31 +1,33 @@
 <template>
 <div>
-  <div>
-    <el-switch v-model="show720p" on-text="720p" off-text="HDTV" :width="70" @change="qualitySwitch">
-    </el-switch>
-    <el-table v-loading.body="loading" element-loading-text="Loading..." :data="filteredShowList" border @current-change="downloading" style="width: 100%; cursor: pointer;" :row-class-name="likedRowHighlight">
-      <el-table-column prop="name" label="Name" align="left" @click="downloading">
-      </el-table-column>
-      <el-table-column prop="quality" label="Quality" width="120">
-      </el-table-column>
-      <el-table-column prop="size" label="Size" width="120">
-      </el-table-column>
-      <el-table-column prop="released" label="Released" width="160">
-      </el-table-column>
-      <el-table-column prop="clicks" label="Downloaded" width="125">
-      </el-table-column>
-      <el-table-column width="160" :context="_self" inline-template>
-        <div>
-          <el-button size="small" type="success" @click="handleStar($index, row)">
-            Star
-          </el-button>
-          <el-button size="small" type="danger" @click="handleDelete($index, row)">
-            Hide
-          </el-button>
-        </div>
-      </el-table-column>
-    </el-table>
-  </div>
+  <el-row>
+    <el-col :span="2" :offset="22">
+      <el-switch v-model="show720p" on-text="720p" off-text="HDTV" :width="70" @change="qualitySwitch">
+      </el-switch>
+    </el-col>
+  </el-row>
+  <el-table v-loading.body="loading" element-loading-text="Loading..." :data="filteredShowList" border @current-change="downloading" style="width: 100%; cursor: pointer;" :row-class-name="likedRowHighlight">
+    <el-table-column prop="name" label="Name" align="left" @click="downloading">
+    </el-table-column>
+    <el-table-column prop="quality" label="Quality" width="120">
+    </el-table-column>
+    <el-table-column prop="size" label="Size" width="120">
+    </el-table-column>
+    <el-table-column prop="released" label="Released" width="160">
+    </el-table-column>
+    <el-table-column prop="clicks" label="Downloaded" width="125">
+    </el-table-column>
+    <el-table-column width="160" :context="_self" inline-template>
+      <div>
+        <el-button size="small" type="success" @click="handleStar($index, row)">
+          Star
+        </el-button>
+        <el-button size="small" type="danger" @click="handleDelete($index, row)">
+          Hide
+        </el-button>
+      </div>
+    </el-table-column>
+  </el-table>
 </div>
 </template>
 
