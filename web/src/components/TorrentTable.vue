@@ -13,16 +13,20 @@
   <el-table v-loading.body="loading" element-loading-text="Loading..." :data="filteredShowList" border @current-change="downloading" style="width: 100%; cursor: pointer;" :row-class-name="likedRowHighlight">
     <el-table-column prop="name" label="Name" align="left" @click="downloading">
     </el-table-column>
-    <el-table-column prop="quality" label="Quality" width="120">
-    </el-table-column>
+    <!-- <el-table-column prop="quality" label="Quality" width="120">
+    </el-table-column> -->
     <el-table-column prop="size" label="Size" width="120">
     </el-table-column>
     <el-table-column prop="released" label="Released" width="160">
     </el-table-column>
-    <el-table-column prop="clicks" label="Downloaded" width="125">
+    <el-table-column prop="clicks" label="Clicks" width="90">
     </el-table-column>
     <el-table-column width="180" :context="_self" inline-template>
       <div>
+        <!-- <el-popover ref="seen-popover" placement="left" width="400" trigger="hover">
+          <img src="http://i.imgur.com/x06JhlV.gif" width="400" />
+        </el-popover>
+        <el-button v-popover:seen-popover @click="handleSeen($index, row)">Seen it</el-button> -->
         <el-button size="small" type="success" @click="handleStar($index, row)">
           Watching
         </el-button>
@@ -66,6 +70,7 @@ export default {
         })
     },
     downloading(val, i) {
+      val.clicks = val.clicks || 0
       val.clicks += 1
       let notifyContent = {
         title: 'Downloading...',
@@ -103,6 +108,7 @@ export default {
     },
     handleStar(a, row) {
       event.stopPropagation()
+        // add to watching list
       if (!this.likedShows.includes(row.title)) this.likedShows.push(row.title)
       localStorage.setItem('demon.liked', JSON.stringify(this.likedShows))
       const msg = {
@@ -110,6 +116,10 @@ export default {
         type: 'success'
       }
       this.$message(msg)
+    },
+    handleSeen(a, row) {
+      event.stopPropagation()
+        // TODO: remove from filtered list, show rating, feedback, or comments
     },
     likedRowHighlight(row, index) {
       if (this.likedShows.includes(row.title)) {
