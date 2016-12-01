@@ -1,4 +1,5 @@
 export default(list, quality) => {
+  if (!quality)quality = 'HDTV'
   let filteredList = []
   // if (input.length === 1) return [input[0]]
   for (let show of list) {
@@ -8,10 +9,8 @@ export default(list, quality) => {
     const hasMoreThanOneQuality = matchingShows.filter(n => n.quality === 'HDTV').length && matchingShows.filter(n => n.quality === '720p').length
     // has repack of the same quality?
     const hasRepackOfSameQuality = matchingShows.filter(n => n.name.includes('REPACK') && n.quality === show.quality).length
-    // skip non repacked episode
-    if (hasRepackOfSameQuality) {
-      if (!show.name.includes('REPACK')) continue
-    }
+    // is this show the version which got repacked
+    if (hasRepackOfSameQuality && !show.name.includes('REPACK')) continue
 
     if (!hasMoreThanOneQuality) {
       filteredList.push(show)
