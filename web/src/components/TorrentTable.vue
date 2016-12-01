@@ -6,7 +6,7 @@
     </el-col>
     <el-col :span="4">
       Quality Preference:
-      <el-switch v-model="show720p" on-text="720p" on-color="#C0CCDA" off-text="HDTV" :width="70" @change="qualitySwitch">
+      <el-switch v-model="prefer720p" on-text="720p" on-color="primary" off-color="#20A0FF" off-text="HDTV" :width="70" @change="qualitySwitch">
       </el-switch>
     </el-col>
   </el-row>
@@ -40,8 +40,9 @@ import moment from 'moment'
 import qualityFilter from '../lib/filter'
 // TODO pagination?
 export default {
-  created() {
+  mounted() {
     this.fetchShows()
+      // this.prefer720p = JSON.parse(localStorage.getItem('demon.prefer720p')) || false
   },
   methods: {
     fetchShows() {
@@ -117,14 +118,14 @@ export default {
       }
       return ''
     },
-    qualitySwitch(show720p) {
+    qualitySwitch(prefer720p) {
       // if two exist with same time and episode then filter out quality of those
-      if (show720p) {
+      if (prefer720p) {
         this.filteredShowList = qualityFilter(this.showList, '720p')
-        localStorage.setItem('demon.quality', '720p')
+        localStorage.setItem('demon.prefer720p', true)
       } else {
         this.filteredShowList = qualityFilter(this.showList, 'HDTV')
-        localStorage.setItem('demon.quality', 'HDTV')
+        localStorage.setItem('demon.prefer720p', false)
       }
     }
   },
@@ -135,7 +136,7 @@ export default {
       filteredShowList: [],
       dislikedShows: JSON.parse(localStorage.getItem('demon.disliked')) || [],
       likedShows: JSON.parse(localStorage.getItem('demon.liked')) || [],
-      show720p: localStorage.getItem('demon.quality') || false
+      prefer720p: JSON.parse(localStorage.getItem('demon.prefer720p')) || false
     }
   }
 }
