@@ -77,7 +77,7 @@ export default {
         })
 
       // TODO: re-add magnet link
-      // location.href = val.magnet
+      location.href = val.magnet
     },
     handleDelete(a, row) {
       event.stopPropagation()
