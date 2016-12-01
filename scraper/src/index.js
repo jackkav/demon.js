@@ -2,12 +2,11 @@ import request from 'request'
 import cheerio from 'cheerio'
 import parse from './parse'
 // import schedule from 'node-schedule'
-import axios from 'axios'
+import Axios from 'axios'
+Axios.defaults.baseURL = process.env.API_LOCATION || 'http://120.131.8.223:49960/api/'
+Axios.defaults.headers.common.Accept = 'application/json'
+Axios.defaults.timeout = 20000
 
-var instance = axios.create({
-  baseURL: 'http://localhost:3000/api/',
-  timeout: 1000
-})
 // runs every 30 minutes
 // schedule.scheduleJob('*/30 * * * *', function() {
 request({uri: 'http://www.eztv.ag'}, (error, response, body) => {
@@ -23,7 +22,7 @@ request({uri: 'http://www.eztv.ag'}, (error, response, body) => {
     output.magnet = magnet
 
     // Send this show to API
-    instance.post('/shows', output)
+    Axios.post('/shows', output)
     .then(function (response) {
       console.log(response.data)
     })
