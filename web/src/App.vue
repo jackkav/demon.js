@@ -1,30 +1,119 @@
 <template>
 <div id="app">
-  <top-bar/>
-  <router-view></router-view>
+  <main-header/>
+  <div class="main-cnt">
+    <router-view></router-view>
+  </div>
 </div>
 </template>
 
 <script>
 import TorrentTable from './components/TorrentTable'
-import TopBar from './components/TopBar'
+import MainHeader from './components/Header'
+import Settings from './components/Settings'
 export default {
   name: 'app',
   components: {
     TorrentTable,
-    TopBar,
+    MainHeader,
+    Settings
   }
 }
 </script>
 
 <style>
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
 #app {
-  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  height: 100%;
+}
+
+body {
+  font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', SimSun, sans-serif;
+  overflow: auto;
+  font-weight: 400;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+}
+
+a {
+  color: #4078c0;
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+
+.hljs {
+  line-height: 1.8;
+  font-family: Menlo, Monaco, Consolas, Courier, monospace;
+  font-size: 12px;
+  padding: 18px 24px;
+  background-color: #f9fafc;
+  border: solid 1px #eaeefb;
+  margin-bottom: 25px;
+  border-radius: 4px;
+  -webkit-font-smoothing: auto;
+}
+
+.main-cnt {
+  margin-top: -80px;
+  padding: 100px 0 120px;
+  box-sizing: border-box;
+  min-height: 100%;
+}
+
+.container,
+.page-container {
+  width: 1140px;
+  padding: 0 30px;
+  margin: 0 auto;
+}
+
+.page-container {
+  padding-top: 55px;
+  h2 {
+    font-size: 28px;
+    color: #1f2d3d;
+    margin: 0;
+  }
+  h3 {
+    font-size: 22px;
+  }
+  h2,
+  h3,
+  h4,
+  h5 {
+    font-weight: normal;
+    color: #1f2f3d;
+    &:hover a {
+      opacity: .4;
+    }
+    a {
+      float: left;
+      margin-left: -20px;
+      opacity: 0;
+      cursor: pointer;
+      &:hover {
+        opacity: .4;
+      }
+    }
+  }
+  p {
+    font-size: 14px;
+    color: #5e6d82;
+  }
 }
 
 .el-row {
@@ -34,12 +123,17 @@ export default {
   }
 }
 
-.grid-content {
-  border-radius: 4px;
-  min-height: 36px;
+@media (max-width: 1140px) {
+  .container,
+  .page-container {
+    width: 100%;
+  }
 }
 
-.row-bg {
-  padding: 10px 0;
+@media (max-width: 768px) {
+  .container,
+  .page-container {
+    padding: 0 20px;
+  }
 }
 </style>
