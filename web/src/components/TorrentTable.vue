@@ -42,7 +42,6 @@ import qualityFilter from '../lib/filter'
 export default {
   mounted() {
     this.fetchShows()
-      // this.prefer720p = JSON.parse(localStorage.getItem('demon.prefer720p')) || false
   },
   methods: {
     fetchShows() {
