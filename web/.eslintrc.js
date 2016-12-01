@@ -13,7 +13,8 @@ module.exports = {
   env: {
     browser: true,
     node: true,
-    es6: true
+    es6: true,
+    jest: true
   },
   // add your custom rules here
   'rules': {

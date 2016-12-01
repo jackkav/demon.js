@@ -33,6 +33,7 @@
 
 <script>
 import moment from 'moment'
+import filter from '../lib/filter'
 // TODO 720p filter, pagination?
 export default {
   created() {
@@ -120,9 +121,9 @@ export default {
 
       if (show720p) {
         // if two exist with same time and episode then filter out quality of those
-        this.filteredShowList = this.showList.filter(x => x.quality === '720p')
+        this.filteredShowList = filter(this.showList, '720p')
       } else {
-        this.filteredShowList = this.showList.filter(x => x.quality !== '720p')
+        this.filteredShowList = filter(this.showList, 'HDTV')
       }
     }
   },

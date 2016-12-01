@@ -13,7 +13,8 @@
     "surge": "surge ./dist demonic.surge.sh",
     "unit": "karma start test/unit/karma.conf.js --single-run",
     "e2e": "node test/e2e/runner.js",
-    "test": "npm run unit && npm run e2e",
+    "test": "jest",
+    "old-test": "npm run unit && npm run e2e",
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
   "dependencies": {
@@ -56,6 +57,7 @@
     "http-proxy-middleware": "^0.17.2",
     "inject-loader": "^3.0.0-beta2",
     "isparta-loader": "^2.0.0",
+    "jest": "^17.0.3",
     "json-loader": "^0.5.4",
     "karma": "^1.3.0",
     "karma-coverage": "^1.1.1",
