@@ -1,8 +1,12 @@
 <template>
 <div>
   <el-row>
-    <el-col :span="2" :offset="22">
-      <el-switch v-model="show720p" on-text="720p" off-text="HDTV" :width="70" @change="qualitySwitch">
+    <el-col :span="20">
+      Use the buttons on the right to train the list in your preferences
+    </el-col>
+    <el-col :span="4">
+      Quality Preference:
+      <el-switch v-model="show720p" on-text="720p" on-color="#C0CCDA" off-text="HDTV" :width="70" @change="qualitySwitch">
       </el-switch>
     </el-col>
   </el-row>
@@ -33,20 +37,18 @@
 
 <script>
 import moment from 'moment'
-import filter from '../lib/filter'
-// TODO 720p filter, pagination?
+import qualityFilter from '../lib/filter'
+// TODO pagination?
 export default {
   created() {
     this.fetchShows()
   },
   methods: {
     fetchShows() {
-      // TODO: hide 720p if HDTV available
       var vm = this
       vm.loading = true
       this.$http.get('/shows')
         .then((response) => {
-          // console.log(response)
           vm.loading = false
           for (var d of response.data) {
             if (!this.dislikedShows.includes(d.title)) {
@@ -56,6 +58,7 @@ export default {
               vm.filteredShowList.push(d)
             }
           }
+          vm.filteredShowList = qualityFilter(vm.filteredShowList, localStorage.getItem('demon.quality'))
         })
         .catch(function(response) {
           vm.loading = false
@@ -114,16 +117,14 @@ export default {
       }
       return ''
     },
-    qualitySwitch(value) {
-      // console.log(value)
-      const show720p = value
-        // TODO: only filter if two exist TDD
-
+    qualitySwitch(show720p) {
+      // if two exist with same time and episode then filter out quality of those
       if (show720p) {
-        // if two exist with same time and episode then filter out quality of those
-        this.filteredShowList = filter(this.showList, '720p')
+        this.filteredShowList = qualityFilter(this.showList, '720p')
+        localStorage.setItem('demon.quality', '720p')
       } else {
-        this.filteredShowList = filter(this.showList, 'HDTV')
+        this.filteredShowList = qualityFilter(this.showList, 'HDTV')
+        localStorage.setItem('demon.quality', 'HDTV')
       }
     }
   },
@@ -134,7 +135,7 @@ export default {
       filteredShowList: [],
       dislikedShows: JSON.parse(localStorage.getItem('demon.disliked')) || [],
       likedShows: JSON.parse(localStorage.getItem('demon.liked')) || [],
-      show720p: false
+      show720p: localStorage.getItem('demon.quality') || false
     }
   }
 }
