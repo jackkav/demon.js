@@ -91,7 +91,7 @@ export default {
       if (!this.dislikedShows.includes(row.title)) this.dislikedShows.push(row.title)
       localStorage.setItem('demon.disliked', JSON.stringify(this.dislikedShows))
         // remove from main list
-      this.filteredShowList = this.showList.filter(x => !this.dislikedShows.includes(x.title))
+      this.filteredShowList = this.filteredShowList.filter(x => !this.dislikedShows.includes(x.title))
         // remove from liked list
       this.likedShows = this.likedShows.filter(x => x !== row.title)
       localStorage.setItem('demon.liked', JSON.stringify(this.likedShows))

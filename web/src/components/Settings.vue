@@ -18,8 +18,8 @@ export default {
   // TODO: add simple deleteable tag list
   data() {
     return {
-      dislikedShows: JSON.parse(localStorage.getItem('demon.disliked')) || [],
-      likedShows: JSON.parse(localStorage.getItem('demon.liked')) || []
+      dislikedShows: JSON.parse(localStorage.getItem('demon.disliked')).sort() || [],
+      likedShows: JSON.parse(localStorage.getItem('demon.liked')).sort() || []
     }
   },
   methods: {

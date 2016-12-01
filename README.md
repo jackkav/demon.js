@@ -1,6 +1,6 @@
 # demon.js
 
-[click to see demo](https://jackkav.github.io/demon.js/)
+[click to see demo](http://demonic.surge.sh/)
 
 ## Start API
 ```bash
