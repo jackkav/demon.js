@@ -48,7 +48,7 @@ export default {
         .then((response) => {
           vm.loading = false
           for (var d of response.data) {
-            if (!this.dislikedShows.includes(d.title)) {
+            if (!this.dislikedShows.includes(d.title) && !this.seenShows.includes(`${d.title}|${d.episode}`)) {
               d.released = moment(d.addedOn).fromNow()
               if (vm.likedShows && vm.likedShows.indexOf(d.title) !== -1) d.watching = true
               vm.showList.push(d)
@@ -94,7 +94,7 @@ export default {
       this.likedShows = this.likedShows.filter(x => x !== row.title)
       localStorage.setItem('demon.liked', JSON.stringify(this.likedShows))
       const msg = {
-        message: 'You don\'t much care for ' + row.title,
+        message: `You're don't care about ${row.title} huh...`,
         type: 'warning'
       }
       this.$message(msg)
@@ -106,7 +106,7 @@ export default {
       this.likedShows.push(row.title)
       localStorage.setItem('demon.liked', JSON.stringify(this.likedShows))
       const msg = {
-        message: 'You\'re watching ' + row.title + ' huh...',
+        message: `You're watching ${row.title} huh...`,
         type: 'success'
       }
       this.$message(msg)
@@ -114,32 +114,33 @@ export default {
     handleSeen(a, row) {
       event.stopPropagation()
       var vm = this
-      const episode = row.title + '|' + row.episode
+      const episode = `${row.title}|${row.episode}`
       if (vm.seenShows.includes(episode)) return
-      vm.seenShows.push(episode)
-      localStorage.setItem('demon.seen', JSON.stringify(this.seenShows))
-      vm.filteredShowList = vm.filteredShowList.filter(x => !vm.seenShows.includes(x.title + '|' + x.episode))
 
       // const msg = {
       //   message: `You've seen ${row.title} ${row.episode} huh, hiding...`,
       //   type: 'success'
       // }
       // this.$message(msg)
-      // this.$confirm('This will permanently delete the file. Continue?', 'Warning', {
-      //   confirmButtonText: 'OK',
-      //   cancelButtonText: 'Cancel',
-      //   type: 'warning'
-      // }).then(() => {
-      //   this.$message({
-      //     type: 'success',
-      //     message: 'Delete completed'
-      //   })
-      // }).catch(() => {
-      //   this.$message({
-      //     type: 'info',
-      //     message: 'Delete canceled'
-      //   })
-      // })
+      this.$confirm('This will hide this episode. Continue?', 'Warning', {
+        confirmButtonText: 'OK',
+        cancelButtonText: 'Cancel',
+        type: 'warning'
+      }).then(() => {
+        vm.seenShows.push(episode)
+        localStorage.setItem('demon.seen', JSON.stringify(this.seenShows))
+        vm.filteredShowList = vm.filteredShowList.filter(x => !vm.seenShows.includes(x.title + '|' + x.episode))
+
+        this.$message({
+          type: 'success',
+          message: 'Hidden'
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: 'Hide canceled'
+        })
+      })
     },
     likedRowHighlight(row, index) {
       if (this.likedShows.includes(row.title)) {
