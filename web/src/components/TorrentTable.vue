@@ -23,9 +23,9 @@
     </el-table-column>
     <el-table-column width="180" :context="_self" inline-template>
       <div>
-        <el-button v-if="row.star" size="small" type="success" @click="handleSeen($index, row)">Seen</el-button>
-        <el-button v-else size="small" type="success" @click="handleStar($index, row)">Watching</el-button>
-        <el-button size="small" type="danger" @click="handleDelete($index, row)">Ignore</el-button>
+        <el-button v-if="row.watching" size="small" type="success" @click="handleSeen($index, row)">Seen</el-button>
+        <el-button v-else size="small" type="success" @click="handleWatching($index, row)">Watching</el-button>
+        <el-button size="small" type="danger" @click="handleIgnore($index, row)">Ignore</el-button>
       </div>
     </el-table-column>
   </el-table>
@@ -50,7 +50,7 @@ export default {
           for (var d of response.data) {
             if (!this.dislikedShows.includes(d.title)) {
               d.released = moment(d.addedOn).fromNow()
-              if (vm.likedShows && vm.likedShows.indexOf(d.title) !== -1) d.star = true
+              if (vm.likedShows && vm.likedShows.indexOf(d.title) !== -1) d.watching = true
               vm.showList.push(d)
               vm.filteredShowList.push(d)
             }
@@ -82,7 +82,7 @@ export default {
 
       location.href = val.magnet
     },
-    handleDelete(a, row) {
+    handleIgnore(a, row) {
       event.stopPropagation()
         // add to dislike list
       if (this.dislikedShows.includes(row.title)) return
@@ -99,10 +99,10 @@ export default {
       }
       this.$message(msg)
     },
-    handleStar(a, row) {
+    handleWatching(a, row) {
       event.stopPropagation()
       if (this.likedShows.includes(row.title)) return
-      row.star = true
+      row.watching = true
       this.likedShows.push(row.title)
       localStorage.setItem('demon.liked', JSON.stringify(this.likedShows))
       const msg = {
@@ -119,11 +119,26 @@ export default {
       localStorage.setItem('demon.seen', JSON.stringify(this.seenShows))
       this.filteredShowList = this.filteredShowList.filter(x => !this.seenShows.includes(x.title + '|' + x.episode))
 
-      const msg = {
-        message: `You've seen ${row.title} ${row.episode} huh, hiding...`,
-        type: 'success'
-      }
-      this.$message(msg)
+      // const msg = {
+      //   message: `You've seen ${row.title} ${row.episode} huh, hiding...`,
+      //   type: 'success'
+      // }
+      // this.$message(msg)
+      // this.$confirm('This will permanently delete the file. Continue?', 'Warning', {
+      //   confirmButtonText: 'OK',
+      //   cancelButtonText: 'Cancel',
+      //   type: 'warning'
+      // }).then(() => {
+      //   this.$message({
+      //     type: 'success',
+      //     message: 'Delete completed'
+      //   })
+      // }).catch(() => {
+      //   this.$message({
+      //     type: 'info',
+      //     message: 'Delete canceled'
+      //   })
+      // })
     },
     likedRowHighlight(row, index) {
       if (this.likedShows.includes(row.title)) {
