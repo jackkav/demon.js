@@ -86,7 +86,18 @@ router.route('/shows/:id')
     res.send('Deleted')
   })
 })
-
+router.route('/showTitles')
+// Get all shows
+.get(function(req, res, next) {
+  Show.find()
+  .distinct('title')
+  .exec((err, shows) => {
+    if (err) {
+      res.send(err)
+    }
+    res.json(shows)
+  })
+})
 app.use('/api', router)
 
 // index
