@@ -72,7 +72,7 @@ textarea {
 
 .main-cnt {
   margin-top: -80px;
-  padding: 100px 0 120px;
+  padding: 100px 10px 120px;
   box-sizing: border-box;
   min-height: 100%;
 }
