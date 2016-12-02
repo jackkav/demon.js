@@ -23,12 +23,9 @@
     </el-table-column>
     <el-table-column width="180" :context="_self" inline-template>
       <div>
-        <el-button size="small" type="success" @click="handleStar($index, row)">
-          Watching
-        </el-button>
-        <el-button size="small" type="danger" @click="handleDelete($index, row)">
-          Ignore
-        </el-button>
+        <el-button v-if="row.star" size="small" type="success" @click="handleSeen($index, row)">Seen</el-button>
+        <el-button v-else size="small" type="success" @click="handleStar($index, row)">Watching</el-button>
+        <el-button size="small" type="danger" @click="handleDelete($index, row)">Ignore</el-button>
       </div>
     </el-table-column>
   </el-table>
@@ -53,7 +50,7 @@ export default {
           for (var d of response.data) {
             if (!this.dislikedShows.includes(d.title)) {
               d.released = moment(d.addedOn).fromNow()
-              if (vm.likedShows && vm.likedShows.indexOf(d.title)) d.star = true
+              if (vm.likedShows && vm.likedShows.indexOf(d.title) !== -1) d.star = true
               vm.showList.push(d)
               vm.filteredShowList.push(d)
             }
@@ -66,6 +63,7 @@ export default {
         })
     },
     downloading(val, i) {
+      val.clicks = val.clicks || 0
       val.clicks += 1
       let notifyContent = {
         title: 'Downloading...',
@@ -82,13 +80,13 @@ export default {
           console.log(response)
         })
 
-      // TODO: re-add magnet link
       location.href = val.magnet
     },
     handleDelete(a, row) {
       event.stopPropagation()
         // add to dislike list
-      if (!this.dislikedShows.includes(row.title)) this.dislikedShows.push(row.title)
+      if (this.dislikedShows.includes(row.title)) return
+      this.dislikedShows.push(row.title)
       localStorage.setItem('demon.disliked', JSON.stringify(this.dislikedShows))
         // remove from main list
       this.filteredShowList = this.filteredShowList.filter(x => !this.dislikedShows.includes(x.title))
@@ -103,10 +101,26 @@ export default {
     },
     handleStar(a, row) {
       event.stopPropagation()
-      if (!this.likedShows.includes(row.title)) this.likedShows.push(row.title)
+      if (this.likedShows.includes(row.title)) return
+      this.likedShows.push(row.title)
       localStorage.setItem('demon.liked', JSON.stringify(this.likedShows))
       const msg = {
         message: 'You\'re watching ' + row.title + ' huh...',
+        type: 'success'
+      }
+      this.$message(msg)
+    },
+    handleSeen(a, row) {
+      // TODO: button switch
+      event.stopPropagation()
+      const episode = row.title + '|' + row.episode
+      if (this.seenShows.includes(episode)) return
+      this.seenShows.push(episode)
+      localStorage.setItem('demon.seen', JSON.stringify(this.seenShows))
+      this.filteredShowList = this.filteredShowList.filter(x => !this.seenShows.includes(x.title + '|' + x.episode))
+
+      const msg = {
+        message: `You've seen ${row.title} ${row.episode} huh, hiding...`,
         type: 'success'
       }
       this.$message(msg)
@@ -135,6 +149,7 @@ export default {
       filteredShowList: [],
       dislikedShows: JSON.parse(localStorage.getItem('demon.disliked')) || [],
       likedShows: JSON.parse(localStorage.getItem('demon.liked')) || [],
+      seenShows: JSON.parse(localStorage.getItem('demon.seen')) || [],
       prefer720p: JSON.parse(localStorage.getItem('demon.prefer720p')) || false
     }
   }
