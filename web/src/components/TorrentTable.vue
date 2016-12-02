@@ -102,6 +102,7 @@ export default {
     handleStar(a, row) {
       event.stopPropagation()
       if (this.likedShows.includes(row.title)) return
+      row.star = true
       this.likedShows.push(row.title)
       localStorage.setItem('demon.liked', JSON.stringify(this.likedShows))
       const msg = {
@@ -111,7 +112,6 @@ export default {
       this.$message(msg)
     },
     handleSeen(a, row) {
-      // TODO: button switch
       event.stopPropagation()
       const episode = row.title + '|' + row.episode
       if (this.seenShows.includes(episode)) return
