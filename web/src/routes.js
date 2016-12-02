@@ -1,9 +1,12 @@
 const About = {
-  template: '<p>about page</p>'
+  template: '<p>test</p>'
 }
 export default [
   {
     path: '/',
+    component: About
+  }, {
+    path: '/latest',
     component: require('components/TorrentTable.vue')
   }, {
     path: '/about',

@@ -160,10 +160,6 @@ export default {
         })
       })
     },
-    handleSeen(a, row) {
-      event.stopPropagation()
-        // TODO: remove from filtered list, show rating, feedback, or comments
-    },
     likedRowHighlight(row, index) {
       if (this.likedShows.includes(row.title)) {
         return 'info-row'
