@@ -18,6 +18,7 @@ router.route('/shows')
   Show.find()
   .select({_id: 0, __v: 0}) // ignore wierd mongoose auto added stuff
   .sort({ addedOn: -1 })
+  // .limit(100) // limit data to post?
   .exec((err, shows) => {
     if (err) {
       res.send(err)

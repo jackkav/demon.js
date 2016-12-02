@@ -1,6 +1,12 @@
 <template>
 <div>
   <el-row>
+    <el-col>
+      <el-progress v-if="trainingLevel == 100" :percentage="trainingLevel" status="success"></el-progress>
+      <el-progress v-else :percentage="trainingLevel"></el-progress>
+    </el-col>
+  </el-row>
+  <el-row>
     <el-col :span="20">
       Use the buttons on the right to train the list in your preferences
     </el-col>
@@ -23,16 +29,9 @@
     </el-table-column>
     <el-table-column width="180" :context="_self" inline-template>
       <div>
-        <!-- <el-popover ref="seen-popover" placement="left" width="400" trigger="hover">
-          <img src="http://i.imgur.com/x06JhlV.gif" width="400" />
-        </el-popover>
-        <el-button v-popover:seen-popover @click="handleSeen($index, row)">Seen it</el-button> -->
-        <el-button size="small" type="success" @click="handleStar($index, row)">
-          Watching
-        </el-button>
-        <el-button size="small" type="danger" @click="handleDelete($index, row)">
-          Ignore
-        </el-button>
+        <el-button v-if="row.watching" size="small" type="success" @click="handleSeen($index, row)">Seen</el-button>
+        <el-button v-else size="small" type="success" @click="handleWatching($index, row)">Watching</el-button>
+        <el-button size="small" type="danger" @click="handleIgnore($index, row)">Ignore</el-button>
       </div>
     </el-table-column>
   </el-table>
@@ -55,14 +54,18 @@ export default {
         .then((response) => {
           vm.loading = false
           for (var d of response.data) {
-            if (!this.dislikedShows.includes(d.title)) {
+            if (!this.dislikedShows.includes(d.title) && !this.seenShows.includes(`${d.title}|${d.episode}`)) {
               d.released = moment(d.addedOn).fromNow()
-              if (vm.likedShows && vm.likedShows.indexOf(d.title)) d.star = true
+              if (vm.likedShows && vm.likedShows.indexOf(d.title) !== -1) d.watching = true
               vm.showList.push(d)
               vm.filteredShowList.push(d)
             }
           }
           vm.filteredShowList = qualityFilter(vm.filteredShowList, localStorage.getItem('demon.quality'))
+          if (vm.filteredShowList && vm.filteredShowList.filter(x => x.watching)) {
+            const percentageOfShowsInListInWatchedState = vm.filteredShowList.filter(x => x.watching).length / vm.filteredShowList.length * 100
+            vm.trainingLevel = Number(percentageOfShowsInListInWatchedState.toFixed())
+          }
         })
         .catch(function(response) {
           vm.loading = false
@@ -87,13 +90,13 @@ export default {
           console.log(response)
         })
 
-      // TODO: re-add magnet link
       location.href = val.magnet
     },
-    handleDelete(a, row) {
+    handleIgnore(a, row) {
       event.stopPropagation()
         // add to dislike list
-      if (!this.dislikedShows.includes(row.title)) this.dislikedShows.push(row.title)
+      if (this.dislikedShows.includes(row.title)) return
+      this.dislikedShows.push(row.title)
       localStorage.setItem('demon.disliked', JSON.stringify(this.dislikedShows))
         // remove from main list
       this.filteredShowList = this.filteredShowList.filter(x => !this.dislikedShows.includes(x.title))
@@ -101,21 +104,61 @@ export default {
       this.likedShows = this.likedShows.filter(x => x !== row.title)
       localStorage.setItem('demon.liked', JSON.stringify(this.likedShows))
       const msg = {
-        message: 'You don\'t much care for ' + row.title,
+        message: `You're don't care about ${row.title} huh...`,
         type: 'warning'
       }
       this.$message(msg)
+      if (this.filteredShowList && this.filteredShowList.filter(x => x.watching)) {
+        const percentageOfShowsInListInWatchedState = this.filteredShowList.filter(x => x.watching).length / this.filteredShowList.length * 100
+        this.trainingLevel = Number(percentageOfShowsInListInWatchedState.toFixed())
+      }
     },
-    handleStar(a, row) {
+    handleWatching(a, row) {
       event.stopPropagation()
-        // add to watching list
-      if (!this.likedShows.includes(row.title)) this.likedShows.push(row.title)
+      if (this.likedShows.includes(row.title)) return
+      row.watching = true
+      this.likedShows.push(row.title)
       localStorage.setItem('demon.liked', JSON.stringify(this.likedShows))
       const msg = {
-        message: 'You\'re watching ' + row.title + ' huh...',
+        message: `You're watching ${row.title} huh...`,
         type: 'success'
       }
       this.$message(msg)
+      if (this.filteredShowList && this.filteredShowList.filter(x => x.watching)) {
+        const percentageOfShowsInListInWatchedState = this.filteredShowList.filter(x => x.watching).length / this.filteredShowList.length * 100
+        this.trainingLevel = Number(percentageOfShowsInListInWatchedState.toFixed())
+      }
+    },
+    handleSeen(a, row) {
+      event.stopPropagation()
+      var vm = this
+      const episode = `${row.title}|${row.episode}`
+      if (vm.seenShows.includes(episode)) return
+
+      // const msg = {
+      //   message: `You've seen ${row.title} ${row.episode} huh, hiding...`,
+      //   type: 'success'
+      // }
+      // this.$message(msg)
+      this.$confirm('This will hide this episode. Continue?', 'Warning', {
+        confirmButtonText: 'OK',
+        cancelButtonText: 'Cancel',
+        type: 'warning'
+      }).then(() => {
+        vm.seenShows.push(episode)
+        localStorage.setItem('demon.seen', JSON.stringify(this.seenShows))
+        vm.filteredShowList = vm.filteredShowList.filter(x => !vm.seenShows.includes(x.title + '|' + x.episode))
+
+        this.$message({
+          type: 'success',
+          message: 'Hidden'
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: 'Hide canceled'
+        })
+      })
     },
     handleSeen(a, row) {
       event.stopPropagation()
@@ -145,7 +188,9 @@ export default {
       filteredShowList: [],
       dislikedShows: JSON.parse(localStorage.getItem('demon.disliked')) || [],
       likedShows: JSON.parse(localStorage.getItem('demon.liked')) || [],
-      prefer720p: JSON.parse(localStorage.getItem('demon.prefer720p')) || false
+      seenShows: JSON.parse(localStorage.getItem('demon.seen')) || [],
+      prefer720p: JSON.parse(localStorage.getItem('demon.prefer720p')) || false,
+      trainingLevel: 0 // TODO: total in view / total watching * 100
     }
   }
 }
