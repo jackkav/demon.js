@@ -64,7 +64,7 @@ export default {
           vm.filteredShowList = qualityFilter(vm.filteredShowList, localStorage.getItem('demon.quality'))
           if (vm.filteredShowList && vm.filteredShowList.filter(x => x.watching)) {
             const percentageOfShowsInListInWatchedState = vm.filteredShowList.filter(x => x.watching).length / vm.filteredShowList.length * 100
-            vm.trainingLevel = percentageOfShowsInListInWatchedState.toFixed(0)
+            vm.trainingLevel = Number(percentageOfShowsInListInWatchedState.toFixed())
           }
         })
         .catch(function(response) {
@@ -110,7 +110,7 @@ export default {
       this.$message(msg)
       if (this.filteredShowList && this.filteredShowList.filter(x => x.watching)) {
         const percentageOfShowsInListInWatchedState = this.filteredShowList.filter(x => x.watching).length / this.filteredShowList.length * 100
-        this.trainingLevel = percentageOfShowsInListInWatchedState.toFixed(0)
+        this.trainingLevel = Number(percentageOfShowsInListInWatchedState.toFixed())
       }
     },
     handleWatching(a, row) {
@@ -126,7 +126,7 @@ export default {
       this.$message(msg)
       if (this.filteredShowList && this.filteredShowList.filter(x => x.watching)) {
         const percentageOfShowsInListInWatchedState = this.filteredShowList.filter(x => x.watching).length / this.filteredShowList.length * 100
-        this.trainingLevel = percentageOfShowsInListInWatchedState.toFixed(0)
+        this.trainingLevel = Number(percentageOfShowsInListInWatchedState.toFixed())
       }
     },
     handleSeen(a, row) {
