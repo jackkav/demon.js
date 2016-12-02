@@ -45,9 +45,11 @@ export default {
     },
     deleteAllLiked() {
       localStorage.removeItem('demon.liked')
+      this.likedShows = []
     },
     deleteAllDisliked() {
       localStorage.removeItem('demon.disliked')
+      this.dislikedShows = []
     }
   }
 }
