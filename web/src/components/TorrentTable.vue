@@ -113,11 +113,12 @@ export default {
     },
     handleSeen(a, row) {
       event.stopPropagation()
+      var vm = this
       const episode = row.title + '|' + row.episode
-      if (this.seenShows.includes(episode)) return
-      this.seenShows.push(episode)
+      if (vm.seenShows.includes(episode)) return
+      vm.seenShows.push(episode)
       localStorage.setItem('demon.seen', JSON.stringify(this.seenShows))
-      this.filteredShowList = this.filteredShowList.filter(x => !this.seenShows.includes(x.title + '|' + x.episode))
+      vm.filteredShowList = vm.filteredShowList.filter(x => !vm.seenShows.includes(x.title + '|' + x.episode))
 
       // const msg = {
       //   message: `You've seen ${row.title} ${row.episode} huh, hiding...`,
