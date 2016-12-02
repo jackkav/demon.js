@@ -1,9 +1,9 @@
 <template>
 <div id="app">
-  <!-- <main-header/> -->
+  <main-header/>
   <div class="main-cnt">
-    <feedback/>
-    <!-- <router-view/> -->
+    <!-- <feedback/> -->
+    <router-view/>
   </div>
 </div>
 </template>

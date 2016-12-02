@@ -1,6 +1,12 @@
 <template>
 <div>
   <el-row>
+    <el-col>
+      <el-progress v-if="trainingLevel == 100" :percentage="trainingLevel" status="success"></el-progress>
+      <el-progress v-else :percentage="trainingLevel"></el-progress>
+    </el-col>
+  </el-row>
+  <el-row>
     <el-col :span="20">
       Use the buttons on the right to train the list in your preferences
     </el-col>
@@ -56,6 +62,10 @@ export default {
             }
           }
           vm.filteredShowList = qualityFilter(vm.filteredShowList, localStorage.getItem('demon.quality'))
+          if (vm.filteredShowList && vm.filteredShowList.filter(x => x.watching)) {
+            const percentageOfShowsInListInWatchedState = vm.filteredShowList.filter(x => x.watching).length / vm.filteredShowList.length * 100
+            vm.trainingLevel = percentageOfShowsInListInWatchedState.toFixed(0)
+          }
         })
         .catch(function(response) {
           vm.loading = false
@@ -98,6 +108,10 @@ export default {
         type: 'warning'
       }
       this.$message(msg)
+      if (this.filteredShowList && this.filteredShowList.filter(x => x.watching)) {
+        const percentageOfShowsInListInWatchedState = this.filteredShowList.filter(x => x.watching).length / this.filteredShowList.length * 100
+        this.trainingLevel = percentageOfShowsInListInWatchedState.toFixed(0)
+      }
     },
     handleWatching(a, row) {
       event.stopPropagation()
@@ -110,6 +124,10 @@ export default {
         type: 'success'
       }
       this.$message(msg)
+      if (this.filteredShowList && this.filteredShowList.filter(x => x.watching)) {
+        const percentageOfShowsInListInWatchedState = this.filteredShowList.filter(x => x.watching).length / this.filteredShowList.length * 100
+        this.trainingLevel = percentageOfShowsInListInWatchedState.toFixed(0)
+      }
     },
     handleSeen(a, row) {
       event.stopPropagation()
@@ -167,7 +185,8 @@ export default {
       dislikedShows: JSON.parse(localStorage.getItem('demon.disliked')) || [],
       likedShows: JSON.parse(localStorage.getItem('demon.liked')) || [],
       seenShows: JSON.parse(localStorage.getItem('demon.seen')) || [],
-      prefer720p: JSON.parse(localStorage.getItem('demon.prefer720p')) || false
+      prefer720p: JSON.parse(localStorage.getItem('demon.prefer720p')) || false,
+      trainingLevel: 0 // TODO: total in view / total watching * 100
     }
   }
 }
