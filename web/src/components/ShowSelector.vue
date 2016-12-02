@@ -4,7 +4,7 @@
   </el-option>
 </el-select>
 </template>
-
+// TODO: add selected to watching list
 <script>
 export default {
   data() {
@@ -15,9 +15,6 @@ export default {
       loading: false,
     }
   },
-  mounted() {
-
-  },
   methods: {
     remoteMethod(query) {
       if (query !== '') {
@@ -27,21 +24,13 @@ export default {
           .then((response) => {
             vm.loading = false
             vm.options4 = response.data.filter(item => {
-              return item.toLowerCase()
-                .indexOf(query.toLowerCase()) > -1
+              return item.toLowerCase().indexOf(query.toLowerCase()) > -1
             })
           })
           .catch(function(response) {
             vm.loading = false
             console.log(response)
           })
-        setTimeout(() => {
-          this.loading = false
-          this.options4 = this.list.filter(item => {
-            return item.label.toLowerCase()
-              .indexOf(query.toLowerCase()) > -1
-          })
-        }, 200)
       } else {
         this.options4 = []
       }

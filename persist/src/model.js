@@ -13,4 +13,7 @@ const Show = mongoose.model('show', {
   updatedOn: Date,
   clicks: Number
 })
-export default Show
+const Site = mongoose.model('site', {
+  views: Number
+})
+export default {Show, Site}

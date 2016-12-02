@@ -1891,10 +1891,6 @@ domutils@1.5.1, domutils@^1.5.1:
     dom-serializer "0"
     domelementtype "1"
 
-dotenv@^2.0.0:
-  version "2.0.0"
-  resolved "http://r.cnpmjs.org/dotenv/download/dotenv-2.0.0.tgz#bd759c357aaa70365e01c96b7b0bec08a6e0d949"
-
 du@0.1.0:
   version "0.1.0"
   resolved "http://r.cnpmjs.org/du/download/du-0.1.0.tgz#f26e340a09c7bc5b6fd69af6dbadea60fa8c6f4d"
