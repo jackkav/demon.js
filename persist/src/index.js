@@ -3,17 +3,12 @@ import Show from './model'
 
 const port = process.env.PORT || 3000
 
-// https://scotch.io/tutorials/build-a-restful-api-using-node-and-express-4
-
 router.use(function(req, res, next) {
-    // do logging
   console.log('Request: ', req.method, req.url)
   next() // make sure we go to the next routes and don't stop here
 })
 
-// REST API
 router.route('/shows')
-// Get all shows
 .get(function(req, res, next) {
   Show.find()
   .select({_id: 0, __v: 0}) // ignore wierd mongoose auto added stuff
@@ -26,10 +21,8 @@ router.route('/shows')
     res.json(shows)
   })
 })
-// TODO: convert this to async await syntax to avoid callbacks?
 // Add new show
 .post(function(req, res, next) {
-  // console.log(req.body)
   const input = req.body
   Show.find({hash: input.hash}, (err, existingShows) => {
     if (err) {
@@ -103,6 +96,19 @@ router.route('/getShowsByTitles/:query')
   Show.find({title: {$in: q}})
   .select({_id: 0, __v: 0})
   .sort({ addedOn: -1 })
+  .exec((err, shows) => {
+    if (err) {
+      res.send(err)
+    }
+    res.json(shows)
+  })
+})
+router.route('/getMostClicked')
+.get(function(req, res, next) {
+  Show.find()
+  .select({_id: 0, __v: 0, magnet: 0})
+  .sort('clicks')
+  .limit(10)
   .exec((err, shows) => {
     if (err) {
       res.send(err)
