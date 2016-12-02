@@ -18,7 +18,7 @@ router.route('/shows')
   Show.find()
   .select({_id: 0, __v: 0}) // ignore wierd mongoose auto added stuff
   .sort({ addedOn: -1 })
-  // .limit(100) // limit data to post?
+  .limit(100) // limit data to post?
   .exec((err, shows) => {
     if (err) {
       res.send(err)
@@ -87,10 +87,22 @@ router.route('/shows/:id')
   })
 })
 router.route('/showTitles')
-// Get all shows
 .get(function(req, res, next) {
   Show.find()
   .distinct('title')
+  .exec((err, shows) => {
+    if (err) {
+      res.send(err)
+    }
+    res.json(shows)
+  })
+})
+router.route('/getShowsByTitles/:query')
+.get(function(req, res, next) {
+  const q = req.params.query.split(',')
+  Show.find({title: {$in: q}})
+  .select({_id: 0, __v: 0})
+  .sort({ addedOn: -1 })
   .exec((err, shows) => {
     if (err) {
       res.send(err)

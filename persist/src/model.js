@@ -16,4 +16,4 @@ const Show = mongoose.model('show', {
 const Site = mongoose.model('site', {
   views: Number
 })
-export default {Show, Site}
+export default Show
