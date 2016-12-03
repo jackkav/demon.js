@@ -13,7 +13,15 @@ const Show = mongoose.model('show', {
   updatedOn: Date,
   clicks: Number
 })
-const Site = mongoose.model('site', {
-  views: Number
-})
+// const Site = mongoose.model('site', {
+//   views: Number
+// })
+// const Series = mongoose.model('series', {
+//   title: String,
+//   description: String,
+//   imageUrl: String,
+//   rating: String,
+//   genre: String,
+//   viewers: Number,
+// })
 export default Show

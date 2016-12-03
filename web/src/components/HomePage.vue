@@ -3,10 +3,21 @@
 <template>
 <div>
   <el-row>
+    <el-card class="box-card">
+      <div slot="header" class="clearfix">
+        <span style="line-height: 36px;">Currently Watching</span>
+        <el-button style="float: right;" type="primary">Find more shows</el-button>
+      </div>
+      <div v-for="o in 3" class="text item">
+        {{'List item ' + o }}
+      </div>
+    </el-card>
+  </el-row>
+  <el-row>
     <el-col :span="12">
       <el-card class="box-card">
         <div slot="header" class="clearfix">
-          <span style="line-height: 36px;">Popular Show Cloud</span>
+          <span style="line-height: 36px;">Highest Rated</span>
         </div>
         <div v-for="o in 3" class="text item">
           {{'List item ' + o }}
@@ -16,21 +27,21 @@
     <el-col :span="12">
       <el-card class="box-card">
         <div slot="header" class="clearfix">
-          <span style="line-height: 36px;">Most Downloaded</span>
+          <span style="line-height: 36px;">Most Viewers</span>
         </div>
-        <most-downloaded/>
+        <div v-for="o in 3" class="text item">
+          {{'List item ' + o }}
+        </div>
       </el-card>
     </el-col>
   </el-row>
   <el-row>
     <el-card class="box-card">
       <div slot="header" class="clearfix">
-        <span style="line-height: 36px;">Currently Watching</span>
+        <span style="line-height: 36px;">Most Downloaded</span>
         <el-button style="float: right;" type="primary">Find more shows</el-button>
       </div>
-      <div v-for="o in 3" class="text item">
-        {{'List item ' + o }}
-      </div>
+      <most-downloaded/>
     </el-card>
   </el-row>
 </div>
