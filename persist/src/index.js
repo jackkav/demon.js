@@ -105,9 +105,10 @@ router.route('/getShowsByTitles/:query')
 })
 router.route('/getMostClicked')
 .get(function(req, res, next) {
-  Show.find()
-  .select({_id: 0, __v: 0, magnet: 0})
-  .sort('clicks')
+  Show.find({clicks: { $gte: 1 }})
+  // .select({_id: 0, __v: 0, magnet: 0})
+  .select({title: 1, episode: 1, name: 1, clicks: 1})
+  .sort({clicks: -1})
   .limit(10)
   .exec((err, shows) => {
     if (err) {

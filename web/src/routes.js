@@ -4,7 +4,7 @@ const About = {
 export default [
   {
     path: '/',
-    component: require('components/SiteStats.vue')
+    component: require('components/HomePage.vue')
   }, {
     path: '/latest',
     component: require('components/TorrentTable.vue')
