@@ -72,8 +72,4 @@ export default {
 .clearfix:after {
   clear: both
 }
-
-.box-card {
-  width: 90%;
-}
 </style>

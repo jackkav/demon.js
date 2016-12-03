@@ -19,9 +19,7 @@
         <div slot="header" class="clearfix">
           <span style="line-height: 36px;">Highest Rated</span>
         </div>
-        <div v-for="o in 3" class="text item">
-          {{'List item ' + o }}
-        </div>
+        <highest-rated/>
       </el-card>
     </el-col>
     <el-col :span="12">
@@ -29,9 +27,7 @@
         <div slot="header" class="clearfix">
           <span style="line-height: 36px;">Most Viewers</span>
         </div>
-        <div v-for="o in 3" class="text item">
-          {{'List item ' + o }}
-        </div>
+        <highest-rated/>
       </el-card>
     </el-col>
   </el-row>
@@ -39,7 +35,6 @@
     <el-card class="box-card">
       <div slot="header" class="clearfix">
         <span style="line-height: 36px;">Most Downloaded</span>
-        <el-button style="float: right;" type="primary">Find more shows</el-button>
       </div>
       <most-downloaded/>
     </el-card>
@@ -48,12 +43,14 @@
 </template>
 <script>
 import MostDownloaded from './MostDownloaded.vue'
+import SeriesList from './SeriesList.vue'
 export default {
   mounted() {
     console.log(window.navigator.userAgent)
   },
   components: {
-    MostDownloaded
+    MostDownloaded,
+    SeriesList
   }
 
 }
@@ -79,6 +76,6 @@ export default {
 }
 
 .box-card {
-  width: 95%;
+  margin: 0 5px;
 }
 </style>
