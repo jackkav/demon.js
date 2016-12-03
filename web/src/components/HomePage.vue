@@ -19,7 +19,7 @@
         <div slot="header" class="clearfix">
           <span style="line-height: 36px;">Highest Rated</span>
         </div>
-        <highest-rated/>
+        <series-list/>
       </el-card>
     </el-col>
     <el-col :span="12">
@@ -27,7 +27,7 @@
         <div slot="header" class="clearfix">
           <span style="line-height: 36px;">Most Viewers</span>
         </div>
-        <highest-rated/>
+        <series-list/>
       </el-card>
     </el-col>
   </el-row>
