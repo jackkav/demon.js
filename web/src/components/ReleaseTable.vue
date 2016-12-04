@@ -7,13 +7,11 @@
     </el-table-column>
     <el-table-column prop="size" label="Size" width="120">
     </el-table-column>
-    <!-- <el-table-column width="180" :context="_self" inline-template>
+    <el-table-column width="180" :context="_self" inline-template>
       <div>
         <el-button v-if="row.watching" size="small" type="success" @click="handleSeen($index, row)">Seen</el-button>
-        <el-button v-else size="small" type="success" @click="handleWatching($index, row)">Watching</el-button>
-        <el-button size="small" type="danger" @click="handleIgnore($index, row)">Ignore</el-button>
       </div>
-    </el-table-column> -->
+    </el-table-column>
   </el-table>
 </div>
 </template>
@@ -31,6 +29,7 @@ export default {
   },
   methods: {
     fetchMyReleases() {
+      if (!this.likedShows) return
       const query = this.likedShows.join(',')
       this.loading = true
       this.$http.get('/getShowsByTitles/' + query)

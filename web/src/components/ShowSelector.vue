@@ -1,5 +1,5 @@
 <template>
-<el-select v-model="value9" multiple filterable remote placeholder="Please enter a keyword" :remote-method="remoteMethod" :loading="loading">
+<el-select v-model="value9" filterable remote placeholder="Find more shows" :remote-method="remoteMethod" :loading="loading" @change="addToWatchlist">
   <el-option v-for="item in options4" :key="item" :label="item" :value="item">
   </el-option>
 </el-select>
@@ -13,9 +13,15 @@ export default {
       value9: [],
       list: [],
       loading: false,
+      likedShows: JSON.parse(localStorage.getItem('demon.liked')) || [],
     }
   },
   methods: {
+    addToWatchlist(selectedTitle) {
+      if (this.likedShows.includes(selectedTitle)) return
+      this.likedShows.push(selectedTitle)
+      localStorage.setItem('demon.liked', JSON.stringify(this.likedShows))
+    },
     remoteMethod(query) {
       if (query !== '') {
         var vm = this

@@ -9,7 +9,10 @@
             </div>
           <el-button>My watch list</el-button>
         </el-tooltip>
-          <el-button style="float: right;" type="primary" icon="search">Find more shows</el-button>
+          <!-- <el-button style="float: right;" type="primary" icon="search">Find more shows</el-button> -->
+          <div style="float: right;">
+          <show-selector/>
+        </div>
         </span>
     </div>
     This component should list releases in my watchlist, allow me to hide watched, and suggest shows to watch when empty For example: Nothing out yet, go find more shows!
@@ -19,9 +22,11 @@
 </template>
 <script>
 import ReleaseTable from './ReleaseTable.vue'
+import ShowSelector from './ShowSelector.vue'
 export default {
   components: {
-    ReleaseTable
+    ReleaseTable,
+    ShowSelector
   },
   data() {
     return {
