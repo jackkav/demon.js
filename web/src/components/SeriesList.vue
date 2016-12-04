@@ -21,7 +21,7 @@ var instance = axios.create({
 export default {
   data() {
     return {
-      likedShows: localStorage.getItem('demon.liked') ? JSON.parse(localStorage.getItem('demon.liked')).sort() : [],
+      likedShows: ['The Walking Dead', 'Shameless', 'Westworld', 'The Flash', 'Supernatural', 'Game of Thrones', 'Vikings', 'Doctor Who', 'The Grand Tour', 'Gotham'],
       poster: '',
       loading: false
     }
