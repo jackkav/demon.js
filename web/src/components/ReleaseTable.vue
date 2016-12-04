@@ -48,6 +48,23 @@ export default {
       return releases.filter(x => !this.seenShows.includes(x.title + '|' + x.episode))
     },
     handleDownload(i, row) {
+      row.clicks = row.clicks || 0
+      row.clicks += 1
+      let notifyContent = {
+        title: 'Downloading...',
+        message: row.name,
+        duration: 3000
+      }
+      this.$notify.success(notifyContent)
+
+      let toUpdate = {
+        clicks: row.clicks
+      }
+      this.$http.put('/shows/' + row.hash, toUpdate)
+        .catch(function(response) {
+          console.log(response)
+        })
+
       location.href = row.magnet
     },
     handleHide(a, row) {
