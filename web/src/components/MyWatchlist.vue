@@ -13,12 +13,16 @@
         </span>
     </div>
     This component should list releases in my watchlist, allow me to hide watched, and suggest shows to watch when empty For example: Nothing out yet, go find more shows!
-
+    <release-table/>
   </el-card>
 </el-row>
 </template>
 <script>
+import ReleaseTable from './ReleaseTable.vue'
 export default {
+  components: {
+    ReleaseTable
+  },
   data() {
     return {
       likedShows: localStorage.getItem('demon.liked') ? JSON.parse(localStorage.getItem('demon.liked')).sort() : [],
