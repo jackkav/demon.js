@@ -21,6 +21,8 @@ export default {
       if (this.likedShows.includes(selectedTitle)) return
       this.likedShows.push(selectedTitle)
       localStorage.setItem('demon.liked', JSON.stringify(this.likedShows))
+      this.localStorage.watchlist = JSON.stringify(this.likedShows)
+
       const msg = {
         message: `You're watching ${selectedTitle} huh...`,
         type: 'success'

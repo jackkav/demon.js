@@ -5857,6 +5857,10 @@ stack-trace@0.0.x:
   version "1.3.1"
   resolved "http://r.cnpmjs.org/statuses/download/statuses-1.3.1.tgz#faf51b9eb74aaef3b3acf4ad5f61abf24cb7b93e"
 
+store@^1.3.20:
+  version "1.3.20"
+  resolved "http://r.cnpmjs.org/store/download/store-1.3.20.tgz#13ea7e3fb2d6c239868265d686b1d84e99c5be3e"
+
 stream-browserify@^1.0.0:
   version "1.0.0"
   resolved "http://r.cnpmjs.org/stream-browserify/download/stream-browserify-1.0.0.tgz#bf9b4abfb42b274d751479e44e0ff2656b6f1193"
@@ -6352,11 +6356,21 @@ vue-loader@^10.0.1:
     vue-style-loader "^1.0.0"
     vue-template-es2015-compiler "^1.2.2"
 
+vue-localstorage@^0.1.2:
+  version "0.1.2"
+  resolved "http://r.cnpmjs.org/vue-localstorage/download/vue-localstorage-0.1.2.tgz#ea6df8ebd4ab55f2fe317086401b487fdff1adff"
+
 vue-popup@^0.2.12:
   version "0.2.12"
   resolved "http://r.cnpmjs.org/vue-popup/download/vue-popup-0.2.12.tgz#61a504883cf4ad69ce83e8a16f0a53f0d58bf738"
   dependencies:
     wind-dom "0.0.3"
+
+vue-reactivestorage@^1.3.0:
+  version "1.3.0"
+  resolved "http://r.cnpmjs.org/vue-reactivestorage/download/vue-reactivestorage-1.3.0.tgz#5b758f769dcb5186f348902a58993efec091ddab"
+  dependencies:
+    store "^1.3.20"
 
 vue-router@^2.0.3:
   version "2.0.3"

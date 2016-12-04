@@ -7,7 +7,7 @@
           ref="popover1"
           placement="right"
           trigger="hover">
-          <el-tag v-for="title in likedShows" :closable="true" :key="title" type="primary" :close-transition="false" @close="handleLikedClose(title)">
+          <el-tag v-for="title in JSON.parse(localStorage.watchlist)" :closable="true" :key="title" type="primary" :close-transition="false" @close="handleLikedClose(title)">
             {{title}}
           </el-tag>
         </el-popover>

@@ -3,10 +3,14 @@ import ElementUI from 'element-ui'
 import App from './App'
 import VueRouter from 'vue-router'
 import routes from './routes'
+import reactiveStorage from 'vue-reactivestorage'
 require('./bootstrap')
 Vue.use(VueRouter)
 
 Vue.use(ElementUI)
+Vue.use(reactiveStorage, [
+  'watchlist'
+])
 
 const router = new VueRouter({
   routes // short for routes: routes
