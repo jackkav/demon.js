@@ -1,6 +1,6 @@
 <template>
-<el-select v-model="value9" filterable remote placeholder="Find more shows" :remote-method="remoteMethod" :loading="loading" @change="addToWatchlist">
-  <el-option v-for="item in options4" :key="item" :label="item" :value="item">
+<el-select v-model="value9" filterable remote placeholder="Find more shows" :remote-method="remoteMethod" :loading="loading" @change="addToWatchlist" style="width: 300px;">
+  <el-option v-for="item in searchResults" :key="item" :label="item" :value="item">
   </el-option>
 </el-select>
 </template>
@@ -9,7 +9,7 @@
 export default {
   data() {
     return {
-      options4: [],
+      searchResults: [],
       value9: [],
       list: [],
       loading: false,
@@ -21,15 +21,17 @@ export default {
       if (this.likedShows.includes(selectedTitle)) return
       this.likedShows.push(selectedTitle)
       localStorage.setItem('demon.liked', JSON.stringify(this.likedShows))
+      this.value9
     },
     remoteMethod(query) {
+      console.log(query, this.value9)
       if (query !== '') {
         var vm = this
         vm.loading = true
         this.$http.get('/showTitles')
           .then((response) => {
             vm.loading = false
-            vm.options4 = response.data.filter(item => {
+            vm.searchResults = response.data.filter(item => {
               return item.toLowerCase().indexOf(query.toLowerCase()) > -1
             })
           })
@@ -38,7 +40,7 @@ export default {
             console.log(response)
           })
       } else {
-        this.options4 = []
+        this.searchResults = []
       }
     }
   }
