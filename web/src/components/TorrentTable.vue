@@ -135,11 +135,6 @@ export default {
       const episode = `${row.title}|${row.episode}`
       if (vm.seenShows.includes(episode)) return
 
-      // const msg = {
-      //   message: `You've seen ${row.title} ${row.episode} huh, hiding...`,
-      //   type: 'success'
-      // }
-      // this.$message(msg)
       this.$confirm('This will hide this episode. Continue?', 'Warning', {
         confirmButtonText: 'OK',
         cancelButtonText: 'Cancel',
