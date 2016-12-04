@@ -9,8 +9,8 @@
     </el-table-column>
     <el-table-column :context="_self" inline-template width="180">
       <div>
-        <el-button size="small" @click="handleEdit($index, row)">
-          Info
+        <el-button size="small" @click="handleHide($index, row)">
+          Hide
         </el-button>
         <el-button size="small" type="primary" @click="handleDelete($index, row)">
           Download

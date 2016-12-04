@@ -3,12 +3,15 @@
   <el-card class="box-card">
     <div slot="header" class="clearfix">
       <span style="line-height: 36px;">
-        <el-tooltip placement="right">
-          <div v-for="title in likedShows"  slot="content">
-              {{title}}
-            </div>
-          <el-button>My watch list</el-button>
-        </el-tooltip>
+        <el-popover
+          ref="popover1"
+          placement="right"
+          trigger="hover">
+          <el-tag v-for="title in likedShows" :closable="true" :key="title" type="primary" :close-transition="false" @close="handleLikedClose(title)">
+            {{title}}
+          </el-tag>
+        </el-popover>
+        <el-button v-popover:popover1>My watch list</el-button>
           <!-- <el-button style="float: right;" type="primary" icon="search">Find more shows</el-button> -->
           <div style="float: right;">
           <show-selector/>
@@ -34,5 +37,11 @@ export default {
       loading: false
     }
   },
+  methods: {
+    handleLikedClose(title) {
+      this.likedShows.splice(this.likedShows.indexOf(title), 1)
+      localStorage.setItem('demon.liked', JSON.stringify(this.likedShows))
+    },
+  }
 }
 </script>

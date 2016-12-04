@@ -21,7 +21,11 @@ export default {
       if (this.likedShows.includes(selectedTitle)) return
       this.likedShows.push(selectedTitle)
       localStorage.setItem('demon.liked', JSON.stringify(this.likedShows))
-      this.value9
+      const msg = {
+        message: `You're watching ${selectedTitle} huh...`,
+        type: 'success'
+      }
+      this.$message(msg)
     },
     remoteMethod(query) {
       console.log(query, this.value9)
