@@ -12,7 +12,7 @@
         <el-button size="small" @click="handleHide($index, row)">
           Hide
         </el-button>
-        <el-button size="small" type="primary" @click="handleDelete($index, row)">
+        <el-button size="small" type="primary" @click="handleDownload($index, row)">
           Download
         </el-button>
       </div>
@@ -40,7 +40,6 @@ export default {
       this.loading = true
       this.$http.get('/getShowsByTitles/' + query)
         .then((response) => {
-          console.log(response.data)
           this.loading = false
           this.MyReleaseList = response.data
         })
@@ -48,21 +47,19 @@ export default {
     filtered: function(releases) {
       return releases.filter(x => !this.seenShows.includes(x.title + '|' + x.episode))
     },
+    handleDownload(i, row) {
+      location.href = row.magnet
+    },
     handleHide(a, row) {
-      event.stopPropagation()
-      var vm = this
       const episode = `${row.title}|${row.episode}`
-      if (vm.seenShows.includes(episode)) return
-
-      this.$confirm('This will hide this episode. Continue?', 'Warning', {
+      if (this.seenShows.includes(episode)) return
+      this.$confirm(`This will hide ${row.episode} of ${row.title}. Continue?`, 'Warning', {
         confirmButtonText: 'OK',
         cancelButtonText: 'Cancel',
         type: 'warning'
       }).then(() => {
-        vm.seenShows.push(episode)
+        this.seenShows.push(episode)
         localStorage.setItem('demon.seen', JSON.stringify(this.seenShows))
-        vm.filteredShowList = vm.filteredShowList.filter(x => !vm.seenShows.includes(x.title + '|' + x.episode))
-
         this.$message({
           type: 'success',
           message: 'Hidden'

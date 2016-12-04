@@ -12,13 +12,11 @@
           </el-tag>
         </el-popover>
         <el-button v-popover:popover1>My watch list</el-button>
-          <!-- <el-button style="float: right;" type="primary" icon="search">Find more shows</el-button> -->
           <div style="float: right;">
           <show-selector/>
         </div>
         </span>
     </div>
-    This component should list releases in my watchlist, allow me to hide watched, and suggest shows to watch when empty For example: Nothing out yet, go find more shows!
     <release-table/>
   </el-card>
 </el-row>
@@ -41,6 +39,7 @@ export default {
     handleLikedClose(title) {
       this.likedShows.splice(this.likedShows.indexOf(title), 1)
       localStorage.setItem('demon.liked', JSON.stringify(this.likedShows))
+        // TODO: remove this show from seen list
     },
   }
 }
