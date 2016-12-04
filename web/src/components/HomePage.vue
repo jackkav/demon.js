@@ -18,7 +18,6 @@
         <div slot="header" class="clearfix">
           <span style="line-height: 36px;">Highest Rated</span>
         </div>
-        This component should show tv shows by highest iMDB rating
         <series-list/>
       </el-card>
     </el-col>
@@ -27,7 +26,6 @@
         <div slot="header" class="clearfix">
           <span style="line-height: 36px;">Most Viewers</span>
         </div>
-        This component should list tv shows by popularity on iMDB
         <series-list/>
       </el-card>
     </el-col>
