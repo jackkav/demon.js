@@ -12,7 +12,7 @@ test('should pull episode from title', () => {
 })
 test('should pull different episode from title', () => {
   const input = 'Food Unwrapped Series 9 13of18 Pesto 720p HDTV x264 AAC mp4 [eztv] (410.63 MB) Magnet Link'
-  expect(parse(input).episode).toBe('Series 9 3of8')
+  expect(parse(input).episode).toBe('Series 9 13of18')
 })
 test('should pull quality from title', () => {
   const input = 'Westworld S01E09 720p HDTV x264-AVS [eztv] (1.07 GB) Magnet Link'
