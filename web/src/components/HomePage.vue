@@ -3,7 +3,7 @@
 <template>
 <div>
   <my-watchlist/>
-  <el-row>
+  <!-- <el-row>
     <el-card class="box-card">
       <div slot="header" class="clearfix">
         <span style="line-height: 36px;">Most Downloaded</span>
@@ -29,7 +29,7 @@
         <series-list/>
       </el-card>
     </el-col>
-  </el-row>
+  </el-row> -->
 </div>
 </template>
 <script>
