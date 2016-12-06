@@ -81,7 +81,7 @@ export default {
       new Fingerprint2().get(function(fingerprint, components) {
         freegeoip.get('json/')
           .then((response) => {
-            const vistor = {
+            const visitor = {
               fingerprint,
               ip: response.data.ip,
               language: components['language'],
@@ -90,7 +90,8 @@ export default {
               city: response.data.city,
               userAgent: window.navigator.userAgent,
             }
-            axios.post('view', vistor)
+            localStorage.setItem('demon.fingerprint', JSON.stringify(visitor))
+            axios.post('view', visitor)
           })
       })
     }

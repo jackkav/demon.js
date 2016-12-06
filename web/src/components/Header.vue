@@ -5,6 +5,8 @@
     <!-- <el-menu-item index="/latest">latest</el-menu-item>
     <el-menu-item index="/settings">settings</el-menu-item>
     <el-menu-item index="/about">about</el-menu-item> -->
+    <!-- show page with visitor stats -->
+    <el-menu-item v-if="hasVisitedBefore" style="float:right;">Logged in from {{fingerprint.city}}</el-menu-item>
   </el-menu>
 </div>
 </template>
@@ -17,6 +19,8 @@ export default {
     }
     return {
       defaultActive,
+      hasVisitedBefore: localStorage.getItem('demon.fingerprint').length,
+      fingerprint: JSON.parse(localStorage.getItem('demon.fingerprint'))
     }
   },
 }
