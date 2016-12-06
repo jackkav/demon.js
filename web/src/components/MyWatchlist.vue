@@ -3,17 +3,9 @@
   <el-card class="box-card">
     <div slot="header" class="clearfix">
       <span style="line-height: 36px;">
-        <el-popover
-          ref="popover1"
-          placement="right"
-          trigger="hover">
-          <el-tag v-for="title in likedShows" :closable="true" :key="title" type="primary" :close-transition="false" @close="handleLikedClose(title)">
-            {{title}}
-          </el-tag>
-        </el-popover>
-        <el-button v-popover:popover1>My watch list</el-button>
+        Latest releases in your watchlist
           <div style="float: right;">
-          <show-selector/>
+          Quality preference(TODO)
         </div>
         </span>
     </div>

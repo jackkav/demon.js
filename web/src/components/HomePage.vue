@@ -5,16 +5,19 @@
   <ol>
     <h1>TODO:</h1>
     <li>remove should be instant</li>
-    <li>info popup with show data from api</li>
-    <li>move show search to watchlist manager</li>
     <li>get latest release by adding latest release episode and date to getShowTitles? then set next release as a week later</li>
     <li>when nextRelease is greater than one week ago set to unknown</li>
+    <li>info popup with show data from api</li>
     <li>add feedback form to hide button</li>
+    <li>quality preference</li>
   </ol>
   <el-row>
     <el-card class="box-card">
       <div slot="header" class="clearfix">
         <span style="line-height: 36px;">Manage My Watchlist</span>
+        <div style="float: right;">
+          <show-selector/>
+        </div>
       </div>
       <manage-watchlist/>
     </el-card>
@@ -54,6 +57,7 @@ import MostDownloaded from './MostDownloaded.vue'
 import SeriesList from './SeriesList.vue'
 import MyWatchlist from './MyWatchlist.vue'
 import ManageWatchlist from './ManageWatchlist.vue'
+import ShowSelector from './ShowSelector.vue'
 
 import Fingerprint2 from 'fingerprintjs2'
 import axios from 'axios'
@@ -69,7 +73,8 @@ export default {
     MostDownloaded,
     SeriesList,
     MyWatchlist,
-    ManageWatchlist
+    ManageWatchlist,
+    ShowSelector
   },
   methods: {
     RecordUser() {
