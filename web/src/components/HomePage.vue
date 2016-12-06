@@ -2,6 +2,16 @@
 //TODO: send page views to api
 <template>
 <div>
+  <ol>
+    <h1>TODO:</h1>
+    <li>remove should have confirm dialog</li>
+    <li>remove should be instant</li>
+    <li>info popup with show data from api</li>
+    <li>move show search to watchlist manager</li>
+    <li>get latest release by adding latest release episode and date to getShowTitles? then set next release as a week later</li>
+    <li>when nextRelease is greater than one week ago set to unknown</li>
+    <li>add feedback form to hide button</li>
+  </ol>
   <el-row>
     <el-card class="box-card">
       <div slot="header" class="clearfix">
