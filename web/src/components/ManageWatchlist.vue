@@ -1,6 +1,6 @@
 <template>
 <el-table :data="watchlistTable" border style="width: 100%">
-  <el-table-column prop="name" label="Name" align="left">
+  <el-table-column prop="title" label="Name" align="left">
   </el-table-column>
   <el-table-column prop="latestRelease" label="Latest Release(TODO)" align="left" width="200">
   </el-table-column>
@@ -11,7 +11,7 @@
       <el-button size="small">
         Info
       </el-button>
-      <el-button size="small" type="danger" @click="handleRemove">
+      <el-button size="small" type="danger" @click="handleRemove($index, row)">
         Remove
       </el-button>
     </div>
@@ -24,10 +24,10 @@ export default {
   data() {
     return {
       likedShows: localStorage.getItem('demon.liked') ? JSON.parse(localStorage.getItem('demon.liked')).sort() : [],
-      watchlistTable: JSON.parse(localStorage.getItem('demon.liked')).map((name) => {
-        const expectedDate = moment().add(Math.random() * 10, 'days').toString()
+      watchlistTable: JSON.parse(localStorage.getItem('demon.liked')).map((title) => {
+        const expectedDate = moment().add(Math.random() * 10, 'days').toISOString()
         return {
-          name,
+          title,
           latestRelease: 'S01E01',
           expectedDate,
           nextRelease: moment(expectedDate).fromNow()
@@ -36,9 +36,24 @@ export default {
     }
   },
   methods: {
-    handleRemove(title) {
-      this.likedShows.splice(this.likedShows.indexOf(title), 1)
-      localStorage.setItem('demon.liked', JSON.stringify(this.likedShows))
+    handleRemove(a, row) {
+      this.$confirm(`This will remove ${row.title} from your watchlist. Continue?`, 'Warning', {
+        confirmButtonText: 'OK',
+        cancelButtonText: 'Cancel',
+        type: 'warning'
+      }).then(() => {
+        this.likedShows.splice(this.likedShows.indexOf(row.title), 1)
+        localStorage.setItem('demon.liked', JSON.stringify(this.likedShows))
+        this.$message({
+          type: 'success',
+          message: 'Removed'
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: 'Remove canceled'
+        })
+      })
     },
   }
 }

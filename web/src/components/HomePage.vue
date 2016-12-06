@@ -4,7 +4,6 @@
 <div>
   <ol>
     <h1>TODO:</h1>
-    <li>remove should have confirm dialog</li>
     <li>remove should be instant</li>
     <li>info popup with show data from api</li>
     <li>move show search to watchlist manager</li>

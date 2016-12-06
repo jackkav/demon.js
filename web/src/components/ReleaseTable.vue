@@ -9,7 +9,7 @@
     </el-table-column>
     <el-table-column :context="_self" inline-template width="180">
       <div>
-        <el-button size="small" @click="handleHide($index, row)">
+        <el-button size="small" type="warn" @click="handleHide($index, row)">
           Hide
         </el-button>
         <el-button size="small" type="primary" @click="handleDownload($index, row)">
