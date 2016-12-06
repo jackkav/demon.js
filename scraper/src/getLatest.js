@@ -1,10 +1,15 @@
 import request from 'request'
 import cheerio from 'cheerio'
 import Axios from 'axios'
-import parse from './parse'
+import ezParse from './parse'
+import pbParse from './pbParse'
 
 export default function getLatest() {
-  request({uri: 'https://pirateproxy.vip/tv/latest'}, (error, response, body) => {
+  scrapePbay()
+  scrapeEZTV()
+}
+function scrapePbay() {
+  request({uri: 'https://pirateproxy.vip/tv/latest/'}, (error, response, body) => {
     if (error)console.error(error)
     const $ = cheerio.load(body)
     // console.log($('a[title="Download this torrent using magnet"]')[0].attribs.href)
@@ -13,7 +18,20 @@ export default function getLatest() {
       // const link = $(this)
       const magnet = item.attribs.href
       const text = $(item).parent().text()
-      console.log($(item).parent().text())
+      const output = pbParse(text)
+      if (output) {
+        // console.log(output)
+        output.hash = magnet.match(/(?![magnet:?xt=urn:btih:])(.*)(?=&dn)/)[0]
+        output.magnet = magnet
+
+        Axios.post('/shows', output)
+        .then(function (response) {
+          console.log(response.data)
+        })
+        .catch(function (response) {
+          console.log(response)
+        })
+      }
     })
   })
 }
@@ -22,22 +40,23 @@ function scrapeEZTV() {
     if (error)console.error(error)
     const $ = cheerio.load(body)
 
-    $('.magnet').each(() => {
-      const link = $(this)
-      const name = link.attr('title')
-      const magnet = link.attr('href')
-      const output = parse(name)
-      output.hash = magnet.match(/(?![magnet:?xt=urn:btih:])(.*)(?=&dn)/)[0]
-      output.magnet = magnet
+    $('.magnet').each((a, item) => {
+      const name = item.attribs.title
+      const magnet = item.attribs.href
+      const output = ezParse(name)
+      if (output) {
+        output.hash = magnet.match(/(?![magnet:?xt=urn:btih:])(.*)(?=&dn)/)[0]
+        output.magnet = magnet
 
       // Send this show to API
-      Axios.post('/shows', output)
+        Axios.post('/shows', output)
       .then(function (response) {
         console.log(response.data)
       })
       .catch(function (response) {
         console.log(response)
       })
+      }
     })
   })
 }
