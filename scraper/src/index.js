@@ -6,6 +6,8 @@ Axios.defaults.baseURL = process.env.API_LOCATION || 'http://120.131.8.223:49960
 Axios.defaults.headers.common.Accept = 'application/json'
 Axios.defaults.timeout = 20000
 
+// TODO: refactor scraping regex
+
 // runs every 10 minutes
 schedule.scheduleJob('*/10 * * * *', function() {
   getLatest()
