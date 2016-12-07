@@ -1,5 +1,5 @@
 <template>
-<el-select v-model="selectedValue" filterable remote placeholder="Find more shows" :remote-method="remoteMethod" :loading="loading" @change="addToWatchlist" style="width: 300px;">
+<el-select v-model="selectedValue" filterable clearable remote placeholder="Find more shows" :remote-method="remoteMethod" :loading="loading" @change="addToWatchlist" style="width: 300px;">
   <el-option v-for="item in searchResults" :key="item" :label="item" :value="item">
   </el-option>
 </el-select>
@@ -21,7 +21,7 @@ export default {
   data() {
     return {
       searchResults: [],
-      selectedValue: [],
+      selectedValue: '',
       loading: false,
     }
   },

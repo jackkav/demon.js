@@ -5,7 +5,9 @@
       <span style="line-height: 36px;">
         Latest releases in your watchlist
           <div style="float: right;">
-          Quality preference(TODO)
+            Quality Preference:
+            <el-switch v-model="prefer720p" on-text="720p" on-color="primary" off-color="#20A0FF" off-text="HDTV" :width="70" @change="qualitySwitch">
+            </el-switch>
         </div>
         </span>
     </div>
@@ -15,23 +17,26 @@
 </template>
 <script>
 import ReleaseTable from './ReleaseTable.vue'
-import ShowSelector from './ShowSelector.vue'
 export default {
   components: {
     ReleaseTable,
-    ShowSelector
   },
   data() {
     return {
-      likedShows: localStorage.getItem('demon.liked') ? JSON.parse(localStorage.getItem('demon.liked')).sort() : [],
-      loading: false
+      loading: false,
+      prefer720p: JSON.parse(localStorage.getItem('demon.prefer720p')) || false,
     }
   },
   methods: {
-    handleLikedClose(title) {
-      this.likedShows.splice(this.likedShows.indexOf(title), 1)
-      localStorage.setItem('demon.liked', JSON.stringify(this.likedShows))
-        // TODO: remove this show from seen list
+    qualitySwitch(prefer720p) {
+      // if two exist with same time and episode then filter out quality of those
+      if (prefer720p) {
+        // this.filteredShowList = qualityFilter(this.showList, '720p')
+        localStorage.setItem('demon.prefer720p', true)
+      } else {
+        // this.filteredShowList = qualityFilter(this.showList, 'HDTV')
+        localStorage.setItem('demon.prefer720p', false)
+      }
     },
   }
 }
