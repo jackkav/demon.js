@@ -22,6 +22,17 @@
 </template>
 <script>
 export default {
+  computed: {
+    watchlistTable() {
+      return this.$store.state.watchlistTable
+    },
+    newWatchlistTable() {
+      return this.watchlistTable.map(item => item.title)
+    }
+  },
+  watch: {
+    watchlistTable: 'fetchMyReleases',
+  },
   mounted() {
     this.fetchMyReleases()
   },
@@ -35,8 +46,7 @@ export default {
   },
   methods: {
     fetchMyReleases() {
-      if (!this.likedShows.length) return
-      const query = this.likedShows.join(',')
+      const query = this.newWatchlistTable.join(',')
       this.loading = true
       this.$http.get('/getShowsByTitles/' + query)
         .then((response) => {

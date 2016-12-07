@@ -4,8 +4,8 @@ import localStorage from './local-store'
 
 Vue.use(Vuex)
 
-const d = [{title: 'Gotham', id: 'id1', updated: '201602'}, {title: 'Panorama', id: 'id2', updated: '201603'}]
-localStorage.setItem('watchlistTable', d)
+// const d = [{title: 'Gotham', id: 'id1', updated: '201602'}, {title: 'Panorama', id: 'id2', updated: '201603'}]
+// localStorage.setItem('watchlistTable', d)
 // root state object.
 // each Vuex instance is just a single state tree.
 const state = {

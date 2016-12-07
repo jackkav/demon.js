@@ -36,13 +36,16 @@ export default {
     watchlistTable() {
       return this.$store.state.watchlistTable
     },
+    hasWatchlist() {
+      return this.watchlistTable.length
+    }
   },
   data() {
-    let hasWatchlist = false
-    if (localStorage.getItem('demon.liked')) hasWatchlist = true
+    // let hasWatchlist = false
+    // if (localStorage.getItem('demon.liked')) hasWatchlist = true
     return {
-      hasWatchlist,
-      likedShows: localStorage.getItem('demon.liked') ? JSON.parse(localStorage.getItem('demon.liked')).sort() : [],
+      // hasWatchlist,
+      // likedShows: localStorage.getItem('demon.liked') ? JSON.parse(localStorage.getItem('demon.liked')).sort() : [],
       // watchlistTable: JSON.parse(localStorage.getItem('demon.liked')).map((title) => {
       //   const expectedDate = moment().add(Math.random() * 10, 'days').toISOString()
       //   return {

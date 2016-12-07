@@ -6,7 +6,17 @@
 </template>
 // TODO: add selected to watching list
 <script>
+import {
+  // mapGetters,
+  mapMutations,
+  // mapActions
+} from 'vuex'
 export default {
+  computed: {
+    watchlistTable() {
+      return this.$store.state.watchlistTable
+    },
+  },
   data() {
     return {
       searchResults: [],
@@ -17,15 +27,24 @@ export default {
     }
   },
   methods: {
-    addToWatchlist(selectedTitle) {
-      if (this.likedShows.includes(selectedTitle)) return
-      this.likedShows.push(selectedTitle)
-      localStorage.setItem('demon.liked', JSON.stringify(this.likedShows))
-      const msg = {
-        message: `You're watching ${selectedTitle} huh...`,
-        type: 'success'
-      }
-      this.$message(msg)
+    ...mapMutations({
+      setWatchlistTable: 'setWatchlistTable',
+    }),
+    addToWatchlist(title) {
+      let newData = this.watchlistTable
+      newData.push({
+        title
+      })
+
+      this.setWatchlistTable(newData)
+        // if (this.likedShows.includes(selectedTitle)) return
+        // this.likedShows.push(selectedTitle)
+        // localStorage.setItem('demon.liked', JSON.stringify(this.likedShows))
+        // const msg = {
+        //   message: `You're watching ${selectedTitle} huh...`,
+        //   type: 'success'
+        // }
+        // this.$message(msg)
     },
     remoteMethod(query) {
       console.log(query, this.value9)
@@ -49,4 +68,13 @@ export default {
     }
   }
 }
+</script>
+            console.log(response)
+              })
+          } else {
+            this.searchResults = []
+          }
+        }
+      }
+    }
 </script>
