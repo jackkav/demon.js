@@ -1,6 +1,9 @@
 <template>
 <div>
-  {{poster}}
+  <el-dialog title="Show Information" v-model="dialogShowInfoVisible">
+    {{showInfo}}
+    <img v-bind:src="showInfo.poster"></img>
+  </el-dialog>
   <el-table v-if="hasWatchlist" :data="watchlistTable" border style="width: 100%">
     <el-table-column prop="title" label="Name" align="left">
     </el-table-column>
@@ -47,7 +50,8 @@ export default {
   },
   data() {
     return {
-      poster: '',
+      showInfo: {},
+      dialogShowInfoVisible: false,
     }
   },
   methods: {
@@ -59,8 +63,9 @@ export default {
       omdb.get(`?t=${val.title}&y=&plot=short&r=json`)
         .then((response) => {
           console.log(response.data)
-          this.poster = response.data.Poster
+          this.showInfo = response.data
           this.loading = false
+          this.dialogShowInfoVisible = true
         })
     },
     handleRemove(key, val) {
