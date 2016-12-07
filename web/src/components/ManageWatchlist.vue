@@ -41,11 +41,7 @@ export default {
     }
   },
   data() {
-    // let hasWatchlist = false
-    // if (localStorage.getItem('demon.liked')) hasWatchlist = true
     return {
-      // hasWatchlist,
-      // likedShows: localStorage.getItem('demon.liked') ? JSON.parse(localStorage.getItem('demon.liked')).sort() : [],
       // watchlistTable: JSON.parse(localStorage.getItem('demon.liked')).map((title) => {
       //   const expectedDate = moment().add(Math.random() * 10, 'days').toISOString()
       //   return {
@@ -62,34 +58,22 @@ export default {
       setWatchlistTable: 'setWatchlistTable',
     }),
     handleRemove(key, val) {
-      let newData = []
-      this.watchlistTable.forEach(item => {
-        if (item === val) {
-          return
-        }
-        newData.push(item)
+      this.$confirm(`This will remove ${val.title} from your watchlist. Continue?`, 'Warning', {
+        confirmButtonText: 'OK',
+        cancelButtonText: 'Cancel',
+        type: 'warning'
+      }).then(() => {
+        this.setWatchlistTable(this.watchlistTable.filter(x => x.title !== val.title))
+        this.$message({
+          type: 'success',
+          message: 'Removed'
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: 'Remove canceled'
+        })
       })
-
-      this.setWatchlistTable(newData)
-
-      // this.$confirm(`This will remove ${row.title} from your watchlist. Continue?`, 'Warning', {
-      //   confirmButtonText: 'OK',
-      //   cancelButtonText: 'Cancel',
-      //   type: 'warning'
-      // }).then(() => {
-      //   this.setWatchlistTable
-      //   // this.likedShows.splice(this.likedShows.indexOf(row.title), 1)
-      //   // localStorage.setItem('demon.liked', JSON.stringify(this.likedShows))
-      //   this.$message({
-      //     type: 'success',
-      //     message: 'Removed'
-      //   })
-      // }).catch(() => {
-      //   this.$message({
-      //     type: 'info',
-      //     message: 'Remove canceled'
-      //   })
-      // })
     },
   }
 }

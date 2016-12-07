@@ -4,7 +4,6 @@
 <div>
   <ol>
     <h1>TODO:</h1>
-    <li>remove should be instant</li>
     <li>get latest release by adding latest release episode and date to getShowTitles? then set next release as a week later</li>
     <li>when nextRelease is greater than one week ago set to unknown</li>
     <li>info popup with show data from api</li>
@@ -23,33 +22,6 @@
     </el-card>
   </el-row>
   <my-watchlist/>
-  <!-- <el-row>
-    <el-card class="box-card">
-      <div slot="header" class="clearfix">
-        <span style="line-height: 36px;">Most Downloaded</span>
-      </div>
-      <most-downloaded/>
-    </el-card>
-  </el-row>
-
-  <el-row>
-    <el-col :span="12">
-      <el-card class="box-card">
-        <div slot="header" class="clearfix">
-          <span style="line-height: 36px;">Highest Rated</span>
-        </div>
-        <series-list/>
-      </el-card>
-    </el-col>
-    <el-col :span="12">
-      <el-card class="box-card">
-        <div slot="header" class="clearfix">
-          <span style="line-height: 36px;">Most Viewers</span>
-        </div>
-        <series-list/>
-      </el-card>
-    </el-col>
-  </el-row> -->
 </div>
 </template>
 <script>

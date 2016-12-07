@@ -38,7 +38,6 @@ export default {
   },
   data() {
     return {
-      likedShows: localStorage.getItem('demon.liked') ? JSON.parse(localStorage.getItem('demon.liked')).sort() : [],
       seenShows: JSON.parse(localStorage.getItem('demon.seen')) || [],
       loading: false,
       MyReleaseList: []
@@ -47,6 +46,7 @@ export default {
   methods: {
     fetchMyReleases() {
       const query = this.newWatchlistTable.join(',')
+      if (!query) return
       this.loading = true
       this.$http.get('/getShowsByTitles/' + query)
         .then((response) => {
@@ -57,7 +57,7 @@ export default {
     filtered: function(releases) {
       return releases.filter(x => !this.seenShows.includes(x.title + '|' + x.episode))
     },
-    handleDownload(i, row) {
+    handleDownload(key, row) {
       row.clicks = row.clicks || 0
       row.clicks += 1
       let notifyContent = {
@@ -77,7 +77,7 @@ export default {
 
       location.href = row.magnet
     },
-    handleHide(a, row) {
+    handleHide(key, row) {
       const episode = `${row.title}|${row.episode}`
       if (this.seenShows.includes(episode)) return
       this.$confirm(`This will hide ${row.episode} of ${row.title}. Continue?`, 'Warning', {
