@@ -1,11 +1,12 @@
 <template>
-<el-select v-model="value9" filterable remote placeholder="Find more shows" :remote-method="remoteMethod" :loading="loading" @change="addToWatchlist" style="width: 300px;">
+<el-select v-model="selectedValue" filterable remote placeholder="Find more shows" :remote-method="remoteMethod" :loading="loading" @change="addToWatchlist" style="width: 300px;">
   <el-option v-for="item in searchResults" :key="item" :label="item" :value="item">
   </el-option>
 </el-select>
 </template>
 // TODO: add selected to watching list
 <script>
+import moment from 'moment'
 import {
   // mapGetters,
   mapMutations,
@@ -20,10 +21,8 @@ export default {
   data() {
     return {
       searchResults: [],
-      value9: [],
-      list: [],
+      selectedValue: [],
       loading: false,
-      likedShows: JSON.parse(localStorage.getItem('demon.liked')) || [],
     }
   },
   methods: {
@@ -31,20 +30,22 @@ export default {
       setWatchlistTable: 'setWatchlistTable',
     }),
     addToWatchlist(title) {
-      let newData = this.watchlistTable
-      newData.push({
-        title
+      const alreadyInList = this.watchlistTable.filter(x => x.title === title).length > 0
+      if (alreadyInList) return
+        // TODO: get this data from api/from saving state from my releases api call
+      const expectedDate = moment().add(Math.random() * 10, 'days').toISOString()
+      this.watchlistTable.push({
+        title,
+        latestRelease: 'S01E01',
+        expectedDate,
+        nextRelease: moment(expectedDate).fromNow()
       })
-
-      this.setWatchlistTable(newData)
-        // if (this.likedShows.includes(selectedTitle)) return
-        // this.likedShows.push(selectedTitle)
-        // localStorage.setItem('demon.liked', JSON.stringify(this.likedShows))
-        // const msg = {
-        //   message: `You're watching ${selectedTitle} huh...`,
-        //   type: 'success'
-        // }
-        // this.$message(msg)
+      this.setWatchlistTable(this.watchlistTable)
+      const msg = {
+        message: `Added ${title} to your watchlist`,
+        type: 'success'
+      }
+      this.$message(msg)
     },
     remoteMethod(query) {
       console.log(query, this.value9)
@@ -68,13 +69,4 @@ export default {
     }
   }
 }
-</script>
-            console.log(response)
-              })
-          } else {
-            this.searchResults = []
-          }
-        }
-      }
-    }
 </script>
