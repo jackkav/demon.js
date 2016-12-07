@@ -33,6 +33,7 @@ export default {
       const alreadyInList = this.watchlistTable.filter(x => x.title === title).length > 0
       if (alreadyInList) return
         // TODO: get this data from api/from saving state from my releases api call
+        // TODO: sort by expected data .sort((a, b) => new Date(a.expectedDate) - new Date(b.expectedDate))
       const expectedDate = moment().add(Math.random() * 10, 'days').toISOString()
       this.watchlistTable.push({
         title,
@@ -48,7 +49,6 @@ export default {
       this.$message(msg)
     },
     remoteMethod(query) {
-      console.log(query, this.value9)
       if (query !== '') {
         var vm = this
         vm.loading = true

@@ -1,5 +1,6 @@
 <template>
 <div>
+  {{poster}}
   <el-table v-if="hasWatchlist" :data="watchlistTable" border style="width: 100%">
     <el-table-column prop="title" label="Name" align="left">
     </el-table-column>
@@ -9,7 +10,7 @@
     </el-table-column>
     <el-table-column :context="_self" inline-template width="180">
       <div>
-        <el-button size="small">
+        <el-button size="small" @click="getPoster($index, row)">
           Info
         </el-button>
         <el-button size="small" type="danger" @click="handleRemove($index, row)">
@@ -24,7 +25,11 @@
 </div>
 </template>
 <script>
-// import moment from 'moment'
+import axios from 'axios'
+var omdb = axios.create({
+  baseURL: 'http://www.omdbapi.com/',
+  timeout: 20000,
+})
 import {
   // mapGetters,
   mapMutations,
@@ -42,21 +47,22 @@ export default {
   },
   data() {
     return {
-      // watchlistTable: JSON.parse(localStorage.getItem('demon.liked')).map((title) => {
-      //   const expectedDate = moment().add(Math.random() * 10, 'days').toISOString()
-      //   return {
-      //     title,
-      //     latestRelease: 'S01E01',
-      //     expectedDate,
-      //     nextRelease: moment(expectedDate).fromNow()
-      //   }
-      // }).sort((a, b) => new Date(a.expectedDate) - new Date(b.expectedDate))
+      poster: '',
     }
   },
   methods: {
     ...mapMutations({
       setWatchlistTable: 'setWatchlistTable',
     }),
+    getPoster(key, val) {
+      this.loading = true
+      omdb.get(`?t=${val.title}&y=&plot=short&r=json`)
+        .then((response) => {
+          console.log(response.data)
+          this.poster = response.data.Poster
+          this.loading = false
+        })
+    },
     handleRemove(key, val) {
       this.$confirm(`This will remove ${val.title} from your watchlist. Continue?`, 'Warning', {
         confirmButtonText: 'OK',
