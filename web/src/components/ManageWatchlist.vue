@@ -2,7 +2,7 @@
 <div>
   <el-dialog title="Show Information" v-model="dialogShowInfoVisible">
     {{showInfo}}
-    <img v-bind:src="showInfo.poster"></img>
+    <img v-bind:src="poster"></img>
   </el-dialog>
   <el-table v-if="hasWatchlist" :data="watchlistTable" border style="width: 100%">
     <el-table-column prop="title" label="Name" align="left">
@@ -51,6 +51,7 @@ export default {
   data() {
     return {
       showInfo: {},
+      poster: '',
       dialogShowInfoVisible: false,
     }
   },
@@ -64,6 +65,7 @@ export default {
         .then((response) => {
           console.log(response.data)
           this.showInfo = response.data
+          this.poster = response.data.Poster
           this.loading = false
           this.dialogShowInfoVisible = true
         })
