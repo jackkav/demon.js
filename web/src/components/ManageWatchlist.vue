@@ -1,8 +1,14 @@
 <template>
 <div>
   <el-dialog title="Show Information" v-model="dialogShowInfoVisible">
-    {{showInfo}}
-    <img v-bind:src="poster"></img>
+    <el-col :span="12">
+      <img v-bind:src="poster"></img>
+    </el-col>
+    <el-col :span="12" style="padding: 0 0 0 5px;">
+      <div v-for="(value, key) in showInfo" class="text">
+        <b>{{ key }}</b> : {{ value }}
+      </div>
+    </el-col>
   </el-dialog>
   <el-table v-if="hasWatchlist" :data="watchlistTable" border style="width: 100%">
     <el-table-column prop="title" label="Name" align="left">
@@ -13,7 +19,7 @@
     </el-table-column>
     <el-table-column :context="_self" inline-template width="180">
       <div>
-        <el-button size="small" @click="getPoster($index, row)">
+        <el-button size="small" @click="getShowInfo($index, row)">
           Info
         </el-button>
         <el-button size="small" type="danger" @click="handleRemove($index, row)">
@@ -59,13 +65,14 @@ export default {
     ...mapMutations({
       setWatchlistTable: 'setWatchlistTable',
     }),
-    getPoster(key, val) {
+    getShowInfo(key, val) {
       this.loading = true
       omdb.get(`?t=${val.title}&y=&plot=short&r=json`)
         .then((response) => {
           console.log(response.data)
-          this.showInfo = response.data
           this.poster = response.data.Poster
+          delete response.data.Poster
+          this.showInfo = response.data
           this.loading = false
           this.dialogShowInfoVisible = true
         })
