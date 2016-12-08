@@ -5,11 +5,12 @@ import ezParse from './parse'
 import pbParse from './pbParse'
 
 export default function getLatest() {
-  scrapePbay()
+  scrapePbay('https://pirateproxy.vip/top/205')
+  scrapePbay('https://pirateproxy.vip/tv/latest/')
   scrapeEZTV()
 }
-function scrapePbay() {
-  request({uri: 'https://pirateproxy.vip/tv/latest/'}, (error, response, body) => {
+function scrapePbay(uri) {
+  request({uri}, (error, response, body) => {
     if (error)console.error(error)
     const $ = cheerio.load(body)
     // console.log($('a[title="Download this torrent using magnet"]')[0].attribs.href)

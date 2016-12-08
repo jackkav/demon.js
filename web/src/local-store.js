@@ -1,4 +1,4 @@
-const LOCAL_STORAGE_PREFIX = 'test_'
+const LOCAL_STORAGE_PREFIX = 'demon_'
 export default {
   getItem(key) {
     let value = ''

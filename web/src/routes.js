@@ -3,6 +3,7 @@ const About = {
   <ol>
     <h1>TODO:</h1>
     <li>add feedback form to hide button</li>
+    <li>add feedback to hide fakes</li>
     <li>clear search after submit</li>
     <li>add latest release data to localStorage when releases are collected</li>
     <li>instant quality preference change</li>
