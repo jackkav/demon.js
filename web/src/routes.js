@@ -2,6 +2,8 @@ const About = {
   template: `
   <ol>
     <h1>TODO:</h1>
+    <li>slideout or tab watchlist</li>
+    <li>latest with search</li>
     <li>post to api array of show titles instead of commas seperated list</li>
     <li>get from api object rather than list of title, containing magnet hash to use as key</li>
     <li>try to get imdbID add scrape time, to provide better show list keys and lookup ids</li>
