@@ -11,14 +11,12 @@
 <script>
 import TorrentTable from './components/TorrentTable'
 import MainHeader from './components/Header'
-import Settings from './components/Settings'
 import feedback from './components/feedback'
 export default {
   name: 'app',
   components: {
     TorrentTable,
     MainHeader,
-    Settings,
     feedback
   }
 }

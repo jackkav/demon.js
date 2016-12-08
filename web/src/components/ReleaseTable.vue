@@ -21,6 +21,7 @@
 </div>
 </template>
 <script>
+import qualityFilter from '../lib/filter'
 export default {
   computed: {
     watchlistTable() {
@@ -55,7 +56,10 @@ export default {
         })
     },
     filtered: function(releases) {
-      return releases.filter(x => !this.seenShows.includes(x.title + '|' + x.episode))
+      // TODO: add quality filter here
+      const releasesWithoutHidden = releases.filter(x => !this.seenShows.includes(x.title + '|' + x.episode))
+      const quality = localStorage.getItem('demon.prefer720p') === 'true' ? '720p' : 'HDTV'
+      return qualityFilter(releasesWithoutHidden, quality)
     },
     handleDownload(key, row) {
       row.clicks = row.clicks || 0
