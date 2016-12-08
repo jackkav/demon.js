@@ -2,6 +2,9 @@ const About = {
   template: `
   <ol>
     <h1>TODO:</h1>
+    <li>post to api array of show titles instead of commas seperated list</li>
+    <li>get from api object rather than list of title, containing magnet hash to use as key</li>
+    <li>add usage guide</li>
     <li>add feedback form to hide button</li>
     <li>add feedback to hide fakes</li>
     <li>clear search after submit</li>

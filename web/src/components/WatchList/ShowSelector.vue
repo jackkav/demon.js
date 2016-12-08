@@ -54,17 +54,19 @@ export default {
       if (query !== '') {
         var vm = this
         vm.loading = true
-        this.$http.get('/showTitles')
-          .then((response) => {
-            vm.loading = false
-            vm.searchResults = response.data.filter(item => {
-              return item.toLowerCase().indexOf(query.toLowerCase()) > -1
+        setTimeout(() => {
+          this.$http.get('/showTitles')
+            .then((response) => {
+              vm.loading = false
+              vm.searchResults = response.data.filter(item => {
+                return item.toLowerCase().indexOf(query.toLowerCase()) > -1
+              })
             })
-          })
-          .catch(function(response) {
-            vm.loading = false
-            console.log(response)
-          })
+            .catch(function(response) {
+              vm.loading = false
+              console.log(response)
+            })
+        }, 200)
       } else {
         this.searchResults = []
       }
