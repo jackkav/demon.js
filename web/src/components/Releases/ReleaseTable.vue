@@ -3,8 +3,6 @@
   <el-table v-loading.body="loading" element-loading-text="Loading..." :data="filtered(MyReleaseList)" border style="width: 100%; cursor: pointer;">
     <el-table-column prop="name" label="Name" align="left">
     </el-table-column>
-    <el-table-column prop="quality" label="Quality" width="120">
-    </el-table-column>
     <el-table-column prop="size" label="Size" width="120">
     </el-table-column>
     <el-table-column :context="_self" inline-template width="180">
@@ -21,7 +19,7 @@
 </div>
 </template>
 <script>
-import qualityFilter from '../lib/filter'
+import qualityFilter from '../../lib/filter'
 export default {
   computed: {
     watchlistTable() {
@@ -53,10 +51,11 @@ export default {
         .then((response) => {
           this.loading = false
           this.MyReleaseList = response.data
+            // TODO: foreach item in watchlist check latest episode, if new one is available set latestRelease and increment next release
         })
     },
     filtered: function(releases) {
-      // TODO: add quality filter here
+      // TODO: make quality filter reactive
       const releasesWithoutHidden = releases.filter(x => !this.seenShows.includes(x.title + '|' + x.episode))
       const quality = localStorage.getItem('demon.prefer720p') === 'true' ? '720p' : 'HDTV'
       return qualityFilter(releasesWithoutHidden, quality)

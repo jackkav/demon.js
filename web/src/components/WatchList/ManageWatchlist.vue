@@ -13,11 +13,11 @@
   <el-table v-if="hasWatchlist" :data="watchlistTable" border style="width: 100%">
     <el-table-column prop="title" label="Name" align="left">
     </el-table-column>
-    <el-table-column prop="latestRelease" label="Latest Release(TODO)" align="left" width="200">
+    <!-- <el-table-column prop="latestRelease" label="Latest Release(TODO)" align="left" width="200">
     </el-table-column>
     <el-table-column prop="nextRelease" label="Next Release(TODO)" align="left" width="200">
-    </el-table-column>
-    <el-table-column :context="_self" inline-template width="180">
+    </el-table-column> -->
+    <el-table-column :context="_self" inline-template width="160">
       <div>
         <el-button size="small" @click="getShowInfo($index, row)">
           Info

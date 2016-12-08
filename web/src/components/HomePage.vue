@@ -17,10 +17,9 @@
 </template>
 <script>
 import MostDownloaded from './MostDownloaded.vue'
-import SeriesList from './SeriesList.vue'
-import MyWatchlist from './MyWatchlist.vue'
-import ManageWatchlist from './ManageWatchlist.vue'
-import ShowSelector from './ShowSelector.vue'
+import MyWatchlist from './Releases/MyWatchlist.vue'
+import ManageWatchlist from './WatchList/ManageWatchlist.vue'
+import ShowSelector from './WatchList/ShowSelector.vue'
 
 import Fingerprint2 from 'fingerprintjs2'
 import axios from 'axios'
@@ -34,7 +33,6 @@ export default {
   },
   components: {
     MostDownloaded,
-    SeriesList,
     MyWatchlist,
     ManageWatchlist,
     ShowSelector
