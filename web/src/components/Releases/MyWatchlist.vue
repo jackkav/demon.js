@@ -1,8 +1,7 @@
 <template>
-<el-row>
-  <el-card class="box-card">
-    <div slot="header" class="clearfix">
-      <span style="line-height: 36px;">
+<el-card class="box-card">
+  <div slot="header" class="clearfix">
+    <span style="line-height: 36px;">
         Latest releases in your watchlist
           <div style="float: right;">
             Quality Preference:
@@ -10,10 +9,9 @@
             </el-switch>
         </div>
         </span>
-    </div>
-    <release-table/>
-  </el-card>
-</el-row>
+  </div>
+  <release-table/>
+</el-card>
 </template>
 <script>
 import ReleaseTable from './ReleaseTable.vue'

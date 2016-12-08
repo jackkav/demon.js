@@ -1,26 +1,17 @@
 //TODO: add count up control
 <template>
 <div>
-  <el-row>
-    <el-card class="box-card">
-      <div slot="header" class="clearfix">
-        <span style="line-height: 36px;">Manage My Watchlist</span>
-        <div style="float: right;">
-          <show-selector/>
-        </div>
-      </div>
-      <manage-watchlist/>
-    </el-card>
-  </el-row>
-  <my-watchlist/>
+  <el-col :md="12" :xs="24">
+    <manage/>
+  </el-col>
+  <el-col :md="12" :xs="24">
+    <my-watchlist/>
+  </el-col>
 </div>
 </template>
 <script>
-import MostDownloaded from './MostDownloaded.vue'
 import MyWatchlist from './Releases/MyWatchlist.vue'
-import ManageWatchlist from './WatchList/ManageWatchlist.vue'
-import ShowSelector from './WatchList/ShowSelector.vue'
-
+import Manage from './WatchList/Manage.vue'
 import Fingerprint2 from 'fingerprintjs2'
 import axios from 'axios'
 var freegeoip = axios.create({
@@ -32,10 +23,8 @@ export default {
     this.RecordUser()
   },
   components: {
-    MostDownloaded,
+    Manage,
     MyWatchlist,
-    ManageWatchlist,
-    ShowSelector
   },
   methods: {
     RecordUser() {

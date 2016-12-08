@@ -4,7 +4,6 @@
   </el-option>
 </el-select>
 </template>
-// TODO: add selected to watching list
 <script>
 import moment from 'moment'
 import {
@@ -30,6 +29,7 @@ export default {
       setWatchlistTable: 'setWatchlistTable',
     }),
     addToWatchlist(title) {
+      console.log('called before', title, this.selectedValue)
       const alreadyInList = this.watchlistTable.filter(x => x.title === title).length > 0
       if (alreadyInList) return
         // TODO: get this data from api/from saving state from my releases api call
@@ -47,6 +47,8 @@ export default {
         type: 'success'
       }
       this.$message(msg)
+        // this.$delete(this.$data, 'selectedValue')
+      console.log('called after', title, this.selectedValue)
     },
     remoteMethod(query) {
       if (query !== '') {

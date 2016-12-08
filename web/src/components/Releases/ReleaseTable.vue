@@ -20,6 +20,7 @@
 </template>
 <script>
 import qualityFilter from '../../lib/filter'
+import moment from 'moment'
 export default {
   computed: {
     watchlistTable() {
@@ -41,6 +42,12 @@ export default {
       loading: false,
       MyReleaseList: []
     }
+  },
+  filters: {
+    timeFromNow: (value) => {
+      console.log(value)
+      return moment(value).fromNow()
+    },
   },
   methods: {
     fetchMyReleases() {
