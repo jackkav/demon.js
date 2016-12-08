@@ -1,5 +1,6 @@
 export default (input) => {
   if (!input) return false
+  if (!input.includes('[eztv]')) return false
   const e = input.match(/S\d\dE\d\d/) || input.match(/\d{4} \d{2} \d{2}/) || input.match(/Series \d \d{1,2}of\d{1,2}/)
   const episode = e ? e.toString() : ''
 
@@ -21,6 +22,7 @@ export default (input) => {
     quality,
     size,
     title,
-    name
+    name,
+    uploader: 'eztv'
   }
 }
