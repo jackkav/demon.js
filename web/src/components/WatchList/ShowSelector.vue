@@ -1,5 +1,5 @@
 <template>
-<el-select v-model="selectedValue" filterable clearable remote placeholder="Find more shows" :remote-method="remoteMethod" :loading="loading" @change="addToWatchlist" style="width: 300px;">
+<el-select @input="clearInput" v-model="selectedValue" filterable clearable remote placeholder="Find more shows" :remote-method="remoteMethod" :loading="loading" @change="addToWatchlist" style="width: 300px;">
   <el-option v-for="item in searchResults" :key="item" :label="item" :value="item">
   </el-option>
 </el-select>
@@ -28,7 +28,13 @@ export default {
     ...mapMutations({
       setWatchlistTable: 'setWatchlistTable',
     }),
+    clearInput() { // NOTE: this clears the box after selection
+      this.$nextTick(() => {
+        this.selectedValue = ''
+      })
+    },
     addToWatchlist(title) {
+      if (!title) return
       console.log('called before', title, this.selectedValue)
       const alreadyInList = this.watchlistTable.filter(x => x.title === title).length > 0
       if (alreadyInList) return
@@ -47,8 +53,6 @@ export default {
         type: 'success'
       }
       this.$message(msg)
-        // this.$delete(this.$data, 'selectedValue')
-      console.log('called after', title, this.selectedValue)
     },
     remoteMethod(query) {
       if (query !== '') {
