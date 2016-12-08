@@ -1,10 +1,10 @@
 <template>
 <div>
-  <el-dialog title="Show Information" v-model="dialogShowInfoVisible">
+  <el-dialog title="Show Information" size='large' v-model="dialogShowInfoVisible">
     <el-col :span="12">
       <img v-bind:src="poster"></img>
     </el-col>
-    <el-col :span="12" style="padding: 0 0 0 5px;">
+    <el-col :span="12" style="padding: 0 0 20px 5px;">
       <div v-for="(value, key) in showInfo" class="text">
         <b>{{ key }}</b> : {{ value }}
       </div>

@@ -70,6 +70,6 @@ export default {
 }
 
 .box-card {
-  margin: 0 5px;
+  margin: 0 5px 5px 0;
 }
 </style>
