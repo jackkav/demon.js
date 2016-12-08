@@ -9,8 +9,11 @@ export default(list, quality) => {
     const hasMoreThanOneQuality = matchingShows.filter(n => n.quality === 'HDTV').length && matchingShows.filter(n => n.quality === '720p').length
     // has repack of the same quality?
     const hasRepackOfSameQuality = matchingShows.filter(n => n.name.includes('REPACK') && n.quality === show.quality).length
+    // has proper of the same quality?
+    const hasProperOfSameQuality = matchingShows.filter(n => n.name.includes('PROPER') && n.quality === show.quality).length
     // is this show the version which got repacked
     if (hasRepackOfSameQuality && !show.name.includes('REPACK')) continue
+    if (hasProperOfSameQuality && !show.name.includes('PROPER')) continue
 
     if (!hasMoreThanOneQuality) {
       filteredList.push(show)
