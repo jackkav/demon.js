@@ -2,7 +2,7 @@ import getLatest from './getLatest'
 // import getSeries from './getSeries'
 // import schedule from 'node-schedule'
 import Axios from 'axios'
-Axios.defaults.baseURL = process.env.API_LOCATION || 'http://120.131.8.223:49960/api/'
+Axios.defaults.baseURL = process.env.API_LOCATION || 'https://demonic-persistance.herokuapp.com/api/'
 Axios.defaults.headers.common.Accept = 'application/json'
 Axios.defaults.timeout = 20000
 
