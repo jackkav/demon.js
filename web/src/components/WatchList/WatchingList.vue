@@ -13,6 +13,9 @@
   <el-table v-if="hasWatchlist" :data="watchlistTable" border style="width: 100%">
     <el-table-column prop="title" label="Name" align="left">
     </el-table-column>
+    <el-table-column label="Last Watched" inline-template width="200">
+      <div>{{getLastSeen($index,row)}}</div>
+    </el-table-column>
     <!-- <el-table-column prop="latestRelease" label="Latest Release(TODO)" align="left" width="200">
     </el-table-column>
     <el-table-column prop="nextRelease" label="Next Release(TODO)" align="left" width="200">
@@ -59,12 +62,23 @@ export default {
       showInfo: {},
       poster: '',
       dialogShowInfoVisible: false,
+      lastWatched: {
+        'Vikings': {
+          'watched': 'S04E12'
+        },
+        'The Walking Dead': {
+          'watched': 'S07E04'
+        }
+      }
     }
   },
   methods: {
     ...mapMutations({
       setWatchlistTable: 'setWatchlistTable',
     }),
+    getLastSeen(x, y) {
+      return this.lastWatched[y.title] ? this.lastWatched[y.title].watched : 'unknown'
+    },
     getShowInfo(key, val) {
       this.loading = true
       omdb.get(`?t=${val.title}&y=&plot=short&r=json`)

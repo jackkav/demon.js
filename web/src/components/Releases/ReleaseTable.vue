@@ -5,10 +5,10 @@
     </el-table-column>
     <el-table-column prop="size" label="Size" width="120">
     </el-table-column>
-    <el-table-column :context="_self" inline-template width="180">
+    <el-table-column :context="_self" inline-template width="200">
       <div>
         <el-button size="small" type="warn" @click="handleHide($index, row)">
-          Hide
+          Seen it
         </el-button>
         <el-button size="small" type="primary" @click="handleDownload($index, row)">
           Download
