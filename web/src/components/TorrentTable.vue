@@ -1,21 +1,5 @@
 <template>
 <div>
-  <el-row>
-    <el-col>
-      <el-progress v-if="trainingLevel == 100" :percentage="trainingLevel" status="success"></el-progress>
-      <el-progress v-else :percentage="trainingLevel"></el-progress>
-    </el-col>
-  </el-row>
-  <el-row>
-    <el-col :span="20">
-      Use the buttons on the right to train the list in your preferences
-    </el-col>
-    <el-col :span="4">
-      Quality Preference:
-      <el-switch v-model="prefer720p" on-text="720p" on-color="primary" off-color="#20A0FF" off-text="HDTV" :width="70" @change="qualitySwitch">
-      </el-switch>
-    </el-col>
-  </el-row>
   <el-table v-loading.body="loading" element-loading-text="Loading..." :data="filteredShowList" border @current-change="downloading" style="width: 100%; cursor: pointer;" :row-class-name="likedRowHighlight">
     <el-table-column prop="name" label="Name" align="left" @click="downloading">
     </el-table-column>
@@ -25,15 +9,15 @@
     </el-table-column>
     <el-table-column prop="released" label="Released" width="160">
     </el-table-column>
-    <el-table-column prop="clicks" label="Clicks" width="90">
-    </el-table-column>
-    <el-table-column width="180" :context="_self" inline-template>
+    <!-- <el-table-column prop="clicks" label="Clicks" width="90">
+    </el-table-column> -->
+    <!-- <el-table-column width="180" :context="_self" inline-template>
       <div>
         <el-button v-if="row.watching" size="small" type="success" @click="handleSeen($index, row)">Seen</el-button>
         <el-button v-else size="small" type="success" @click="handleWatching($index, row)">Watching</el-button>
         <el-button size="small" type="danger" @click="handleIgnore($index, row)">Ignore</el-button>
       </div>
-    </el-table-column>
+    </el-table-column> -->
   </el-table>
 </div>
 </template>
