@@ -98,7 +98,7 @@ export default {
     handleHide(key, row) {
       const episode = `${row.title}|${row.episode}`
       if (this.seenShows.includes(episode)) return
-      this.$confirm(`This will hide ${row.episode} of ${row.title}. Continue?`, 'Warning', {
+      this.$confirm(`This will hide ${row.episode} of ${row.title} and all previous episodes. Continue?`, 'Warning', {
         confirmButtonText: 'OK',
         cancelButtonText: 'Cancel',
         type: 'warning'
