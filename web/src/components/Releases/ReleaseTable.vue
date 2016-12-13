@@ -23,6 +23,7 @@
 </template>
 <script>
 import qualityFilter from '../../lib/filter'
+import ignoreFilter from '../../lib/ignore'
 import moment from 'moment'
 import copy from 'copy-to-clipboard'
 export default {
@@ -67,7 +68,7 @@ export default {
     },
     filtered: function(releases) {
       // TODO: make quality filter reactive
-      const releasesWithoutHidden = releases.filter(x => !this.seenShows.includes(x.title + '|' + x.episode))
+      const releasesWithoutHidden = ignoreFilter(releases, this.seenShows)
       const quality = localStorage.getItem('demon.prefer720p') === 'true' ? '720p' : 'HDTV'
       return qualityFilter(releasesWithoutHidden, quality)
     },
