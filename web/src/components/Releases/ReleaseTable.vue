@@ -5,13 +5,16 @@
     </el-table-column>
     <el-table-column prop="size" label="Size" width="120">
     </el-table-column>
-    <el-table-column :context="_self" inline-template width="200">
+    <el-table-column :context="_self" inline-template width="250">
       <div>
         <el-button size="small" type="warn" @click="handleHide($index, row)">
           Seen it
         </el-button>
         <el-button size="small" type="primary" @click="handleDownload($index, row)">
           Download
+        </el-button>
+        <el-button size="small" type="primary" @click="handleCopy($index, row)">
+          Copy
         </el-button>
       </div>
     </el-table-column>
@@ -21,6 +24,7 @@
 <script>
 import qualityFilter from '../../lib/filter'
 import moment from 'moment'
+import copy from 'copy-to-clipboard'
 export default {
   computed: {
     watchlistTable() {
@@ -66,6 +70,9 @@ export default {
       const releasesWithoutHidden = releases.filter(x => !this.seenShows.includes(x.title + '|' + x.episode))
       const quality = localStorage.getItem('demon.prefer720p') === 'true' ? '720p' : 'HDTV'
       return qualityFilter(releasesWithoutHidden, quality)
+    },
+    handleCopy(key, row) {
+      copy(row.magnet)
     },
     handleDownload(key, row) {
       row.clicks = row.clicks || 0

@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "axios": "^0.15.3",
+    "copy-to-clipboard": "^3.0.5",
     "element-ui": "^1.0.2",
     "fingerprintjs2": "^1.4.1",
     "function-bind": "^1.1.0",
