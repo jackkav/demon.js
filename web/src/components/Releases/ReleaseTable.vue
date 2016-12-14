@@ -5,6 +5,8 @@
     </el-table-column>
     <el-table-column prop="size" label="Size" width="120">
     </el-table-column>
+    <el-table-column prop="addedOn" label="Released" width="120" :formatter="formatter">
+    </el-table-column>
     <el-table-column :context="_self" inline-template width="250">
       <div>
         <el-button size="small" type="warn" @click="handleHide($index, row)">
@@ -48,12 +50,6 @@ export default {
       MyReleaseList: []
     }
   },
-  filters: {
-    timeFromNow: (value) => {
-      console.log(value)
-      return moment(value).fromNow()
-    },
-  },
   methods: {
     fetchMyReleases() {
       const query = this.newWatchlistTable.join(',')
@@ -74,6 +70,9 @@ export default {
     },
     handleCopy(key, row) {
       copy(row.magnet)
+    },
+    formatter(row, column) {
+      return moment(row.addedOn).calendar()
     },
     handleDownload(key, row) {
       row.clicks = row.clicks || 0

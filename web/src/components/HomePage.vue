@@ -9,6 +9,7 @@
   </el-col>
 </div>
 </template>
+
 <script>
 import MyWatchlist from './Releases/MyWatchlist.vue'
 import Manage from './WatchList/Manage.vue'
