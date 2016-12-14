@@ -7,7 +7,7 @@
     </el-table-column> -->
     <el-table-column prop="size" label="Size" width="120">
     </el-table-column>
-    <el-table-column prop="released" label="Released" width="160">
+    <el-table-column prop="addedOn" label="Released" width="180" :formatter="formatter">
     </el-table-column>
     <!-- <el-table-column prop="clicks" label="Clicks" width="90">
     </el-table-column> -->
@@ -39,7 +39,6 @@ export default {
           vm.loading = false
           for (var d of response.data) {
             if (!this.dislikedShows.includes(d.title) && !this.seenShows.includes(`${d.title}|${d.episode}`)) {
-              d.released = moment(d.addedOn).fromNow()
               if (vm.likedShows && vm.likedShows.indexOf(d.title) !== -1) d.watching = true
               vm.showList.push(d)
               vm.filteredShowList.push(d)
@@ -55,6 +54,9 @@ export default {
           vm.loading = false
           console.log(response)
         })
+    },
+    formatter(row, column) {
+      return moment(row.addedOn).calendar()
     },
     downloading(val, i) {
       val.clicks = val.clicks || 0
